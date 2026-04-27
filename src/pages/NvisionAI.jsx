@@ -372,7 +372,7 @@ const NvisionAI = () => {
       {/* FOOTER */}
       <footer className="final-footer">
         <div className="footer-left">
-          <div className="logo serif" style={{ marginBottom: '1rem' }}>NvisionAI <span style={{ color: '#64748b', fontSize: '1rem', fontWeight: 'bold' }}>· by NeuzenAI</span></div>
+          <div className="logo serif" style={{ marginBottom: '1rem' }}>Nvision<span className="gold">AI</span> <span style={{ color: 'white', fontSize: '1rem', fontWeight: 'bold' }}>· by NeuzenAI</span></div>
           <div className="footer-subtext">Enterprise Computer Vision for Financial Services</div>
         </div>
         <div className="footer-right">
