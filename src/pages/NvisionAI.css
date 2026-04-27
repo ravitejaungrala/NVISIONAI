@@ -1,7 +1,7 @@
 
 /** NVISION AI PRECISE DESIGN SYSTEM **/
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;900&family=DM+Serif+Display:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700;900&family=DM+Serif+Display:ital@0;1&display=swap');
 
 :root {
   --navy-bg: #040a15;
@@ -105,7 +105,7 @@ h1, h2, h3, h4 {
   justify-content: center;
   padding: 0 4rem; 
 }
-.hero-eyebrow { color: var(--gold); font-size: 10px; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0rem; display: flex; align-items: center; gap: 1rem; }
+.hero-eyebrow { color: var(--gold); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1.5rem; font-family: 'DM Mono', monospace; display: flex; align-items: center; gap: 1rem; }
 .hero-eyebrow::before { content: ""; width: 2rem; height: 1px; background: var(--gold); }
 .hero-title { font-size: 3.5rem; line-height: 1.1; margin-bottom: 1rem; max-width: 900px; }
 .hero-title span { color: var(--gold); font-style: italic; }
@@ -121,17 +121,7 @@ h1, h2, h3, h4 {
   flex-wrap: wrap;
 }
 
-.badge-item {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 0.6rem 1rem;
-  border-radius: 4px;
-  font-size: 10px;
-  font-weight: 800;
-  color: var(--slate);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
+.badge-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 0.6rem 1.25rem; border-radius: 6px; font-size: 11px; font-weight: 700; color: #94a3b8; letter-spacing: 0.05em; transition: 0.3s; font-family: 'DM Mono', monospace; }
 
 /* -------------------------------- STATS -------------------------------- */
 .stats-bar { padding: 3rem 4rem; background: #08111e; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid rgba(255,255,255,0.05); }
@@ -141,8 +131,8 @@ h1, h2, h3, h4 {
 
 /* -------------------------------- SOLUTIONS -------------------------------- */
 .solutions-section { background: white; color: #0f172a; padding: 2.5rem 4rem; }
-.sol-eyebrow { color: var(--teal); font-size: 10px; font-weight: 900; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.1em; }
-.sol-title { font-size: 2.5rem; margin-top: 0; margin-bottom: 0.5rem; line-height: 1.1; }
+.sol-eyebrow { color: var(--teal); font-size: 10px; font-weight: 900; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.1em; font-family: 'DM Mono', monospace; }
+.sol-title { font-size: 2.5rem; margin-top: 0; margin-bottom: 0.5rem; line-height: 1.1; font-family: 'DM Serif Display', serif; }
 .sol-sub { color: var(--slate-dark); font-size: 1rem; margin-top: 0; margin-bottom: 2rem; }
 
 .tabs-box { display: flex; border: 1px solid var(--border); border-radius: 20px; overflow: hidden; background: white; box-shadow: 0 15px 40px rgba(0,0,0,0.03); min-height: 420px; }
@@ -165,22 +155,22 @@ h1, h2, h3, h4 {
 .uc-title-text { font-weight: 800; font-size: 0.95rem; color: #0f172a; }
 .uc-core-badge { background: #dcfce7; color: #166534; font-size: 8px; font-weight: 900; padding: 2px 6px; border-radius: 4px; }
 .uc-content { color: #475569; font-size: 0.85rem; line-height: 1.4; margin-bottom: 1rem; min-height: 2.25rem; }
-.uc-metric { color: var(--gold); font-weight: 800; font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; }
+.uc-metric { color: var(--gold); font-weight: 800; font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; font-family: 'DM Mono', monospace; }
 
 .integrations-row { margin-top: auto; padding-top: 1.5rem; }
 .int-label { color: #64748b; font-size: 10px; font-weight: 800; text-transform: uppercase; display: block; margin-bottom: 0.75rem; }
 .int-pills { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-.int-pill { background: #f1f5f9; color: #10b981; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px; border: 1px solid rgba(16, 185, 129, 0.2); }
+.int-pill { background: #f1f5f9; color: #10b981; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px; border: 1px solid rgba(16, 185, 129, 0.2); font-family: 'DM Mono', monospace; }
 
 /* -------------------------------- PLATFORM -------------------------------- */
 .platform-section { padding: 2.5rem 4rem; background: var(--navy-bg); }
-.plat-eyebrow { color: var(--gold); font-size: 10px; font-weight: 900; margin-bottom: 0.5rem; text-transform: uppercase; }
-.plat-title { font-size: 2.5rem; margin-top: 0; margin-bottom: 0.5rem; line-height: 1.1; }
+.plat-eyebrow { color: var(--gold); font-size: 10px; font-weight: 900; margin-bottom: 0.5rem; text-transform: uppercase; font-family: 'DM Mono', monospace; }
+.plat-title { font-size: 2.5rem; margin-top: 0; margin-bottom: 0.5rem; line-height: 1.1; font-family: 'DM Serif Display', serif; }
 .plat-sub { color: var(--slate); font-size: 1.1rem; font-style: italic; margin-top: 0; margin-bottom: 2rem; }
 .plat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
 .plat-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 16px; transition: 0.3s; }
 .plat-card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.1); }
-.plat-tag { color: var(--teal); font-size: 8px; font-weight: 800; letter-spacing: 0.1em; display: inline-block; margin-bottom: 0.75rem; border: 1px solid rgba(20,184,166,0.3); padding: 2px 8px; border-radius: 4px; }
+.plat-tag { color: var(--teal); font-size: 8px; font-weight: 800; letter-spacing: 0.1em; display: inline-block; margin-bottom: 0.75rem; border: 1px solid rgba(20,184,166,0.3); padding: 2px 8px; border-radius: 4px; font-family: 'DM Mono', monospace; }
 .plat-card-title { font-size: 1.5rem; margin-bottom: 0.75rem; }
 .plat-card-desc { color: var(--slate); font-size: 0.85rem; line-height: 1.5; margin-bottom: 1.5rem; min-height: 3.5rem; }
 .plat-card-list { list-style: none; padding: 0; }
@@ -194,17 +184,17 @@ h1, h2, h3, h4 {
 
 /* -------------------------------- PRICING -------------------------------- */
 .pricing-section { background: white; color: #0f172a; padding: 2.5rem 4rem; }
-.price-eyebrow { color: var(--teal); font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 0.5rem; }
-.price-title { font-size: 2.25rem; margin-top: 0; margin-bottom: 0.5rem; line-height: 1.1; color: #0f172a; }
+.price-eyebrow { color: var(--teal); font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 0.5rem; font-family: 'DM Mono', monospace; }
+.price-title { font-size: 2.5rem; margin-top: 0; margin-bottom: 0.5rem; line-height: 1.1; font-family: 'DM Serif Display', serif; }
 .price-sub { color: var(--slate-dark); font-size: 1rem; max-width: 650px; margin-top: 0; margin-bottom: 2rem; }
-.price-context { color: var(--teal); font-size: 10px; font-weight: 800; letter-spacing: 0.1em; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 0.75rem; width: 100%; }
+.price-context { font-size: 10px; font-weight: 900; color: var(--slate); letter-spacing: 0.15em; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 0.75rem; font-family: 'DM Mono', monospace; }
 .price-context.banking { color: #c9922a; border-bottom: none; margin-top: 2.5rem; margin-bottom: 1rem; }
 .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; align-items: stretch; }
 .price-card { background: white; padding: 1.25rem; border-radius: 20px; border: 1px solid var(--border); display: flex; flex-direction: column; position: relative; transition: 0.3s; }
 .price-card.dark { background: #0f172a; border-color: rgba(255,255,255,0.05); color: white; min-height: 140px; }
 .price-card.popular { border-color: var(--teal); border-width: 2px; }
 .popular-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #14b8a6; color: white; padding: 2px 12px; border-radius: 20px; font-size: 9px; font-weight: 700; z-index: 10; }
-.plan-name { font-size: 10px; font-weight: 800; color: #64748b; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+.plan-name { font-size: 10px; font-weight: 800; color: #64748b; letter-spacing: 0.1em; margin-bottom: 0.5rem; font-family: 'DM Mono', monospace; }
 .price-card.dark .plan-name { color: var(--gold); }
 .plan-price-row { display: flex; align-items: baseline; gap: 0.25rem; margin-bottom: 0.25rem; }
 .plan-price { font-size: 2rem; color: #0f172a; }
