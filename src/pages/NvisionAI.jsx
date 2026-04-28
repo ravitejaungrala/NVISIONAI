@@ -358,32 +358,35 @@ const NvisionAI = () => {
         </div>
       </section>
 
-      {/* FINAL CTA SECTION */}
-      <section className="final-cta text-center">
-        <div className="hero-eyebrow" style={{ justifyContent: 'center' }}>Ready to get started?</div>
-        <h2 className="price-title serif" style={{ color: 'white', fontSize: '4.5rem' }}>See NvisionAI in action</h2>
-        <p className="hero-sub" style={{ margin: '0 auto 4rem auto' }}>Book a 30-minute demo tailored to your vertical — insurance or banking.</p>
-        <div className="hero-btns" style={{ justifyContent: 'center' }}>
-          <button className="btn-gold">Book a Demo <ArrowRight size={18} /></button>
-          <button className="btn-outline">Talk to Sales</button>
-        </div>
-      </section>
-
-      {/* FOOTER */}
-      <footer className="final-footer">
-        <div className="footer-left">
-          <div className="logo serif" style={{ marginBottom: '1rem' }}>Nvision<span className="gold">AI</span> <span style={{ color: 'white', fontSize: '1rem', fontWeight: 'bold' }}>· by NeuzenAI</span></div>
-          <div className="footer-subtext">Enterprise Computer Vision for Financial Services</div>
-        </div>
-        <div className="footer-right">
-          <div className="contact-info">
-            <div>IN India: +91 88852 57422</div>
-            <div>us USA: +1 972 372 9983</div>
-            <div className="gold-email">contact@neuzenai.com</div>
-            <div className="copyright">© 2025 NeuzenAI. T-Hub Phase 2, Hyderabad, India.</div>
+      {/* COMBINED FINAL CTA + FOOTER */}
+      <section className="final-combined">
+        <div className="cta-block text-center">
+          <div className="hero-eyebrow" style={{ justifyContent: 'center' }}>Ready to get started?</div>
+          <h2 className="cta-headline serif">See NvisionAI in action</h2>
+          <p className="cta-sub">Book a 30-minute demo tailored to your vertical — insurance or banking.</p>
+          <div className="hero-btns" style={{ justifyContent: 'center' }}>
+            <button className="btn-gold">Book a Demo <ArrowRight size={18} /></button>
+            <button className="btn-outline">Talk to Sales</button>
           </div>
         </div>
-      </footer>
+
+        <div className="cta-divider"></div>
+
+        <div className="footer-block">
+          <div className="footer-left">
+            <div className="logo serif" style={{ marginBottom: '0.75rem' }}>Nvision<span className="gold">AI</span> <span style={{ color: '#000000', fontSize: '1rem', fontWeight: 'bold' }}>· by NeuzenAI</span></div>
+            <div className="footer-subtext">Enterprise Computer Vision for Financial Services</div>
+          </div>
+          <div className="footer-right">
+            <div className="contact-info">
+              <div>IN India: +91 88852 57422</div>
+              <div>us USA: +1 972 372 9983</div>
+              <div className="gold-email">contact@neuzenai.com</div>
+              <div className="copyright">© 2025 NeuzenAI. T-Hub Phase 2, Hyderabad, India.</div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
