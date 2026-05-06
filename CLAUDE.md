@@ -14,7 +14,7 @@ This file is the source of truth for visual styling on this project. Any UI work
 **Hard rules:**
 
 1. **Background is always white (`#ffffff`).** Never apply colored fills to large surfaces (sections, hero, footer, cards). Single exception: a small intentional dark element like the "Most Popular" pricing card or a TAM header band, where black is used deliberately as a focal point.
-2. **No tinted color washes.** Do not use values like `rgba(255, 69, 0, 0.08)` or any low-opacity colored fill as a box background. The user has explicitly rejected this. The competitor table is the only allowed exception, and only at very low opacity (≤ 0.03) used as alternating row stripes.
+2. **No tinted color washes on large surfaces.** Do not use values like `rgba(255, 69, 0, 0.08)` as a section/hero/footer/large-card background. Approved exceptions: (a) competitor-row stripes at ≤ 0.03 opacity, (b) the TAM "Tagged Grid" small inner tag boxes which use ~0.05 orange or green tint with a matching colored border to communicate the vertical at a glance. Do not extend the tint exception to bigger containers.
 3. **No grays.** Do not use `#94a3b8`, `#64748b`, `#475569`, `#334155`, `slate`, `gray-500`, `text-muted-foreground`, etc. Secondary / muted text is solid black or `var(--ink)` (near-black) — never gray.
 4. **Borders, dividers, accents, edges**: orange (`#ff4500`), green (`#16a34a`), or black. Pick one. No gray borders.
 5. **Text colors**: black for body, orange (`#ff4500`) for brand emphasis / metrics / eyebrows, green for positive/success states.

@@ -278,16 +278,25 @@ const NvisionAI = () => {
           whileInView="visible"
           viewport={sectionViewport}
         >
-          {platformItems.map(item => (
-            <motion.div key={item.title} className="plat-card" variants={cardItem}>
-              <span className="plat-tag">{item.type}</span>
-              <h3 className="plat-card-title serif">{item.title}</h3>
-              <p className="plat-card-desc">{item.desc}</p>
-              <ul className="plat-card-list">
-                {item.list.map(li => <li key={li} className="plat-card-li">{li}</li>)}
-              </ul>
-            </motion.div>
-          ))}
+          {platformItems.map(item => {
+            // Split CamelCase title into two parts for two-tone styling
+            const split = item.title.match(/^([A-Z][a-z]+)([A-Z].*)$/);
+            const titleA = split ? split[1] : item.title;
+            const titleB = split ? split[2] : '';
+            return (
+              <motion.div key={item.title} className="plat-card" variants={cardItem}>
+                <span className="plat-tag">{item.type}</span>
+                <h3 className="plat-card-title serif">
+                  <span className="title-a">{titleA}</span>
+                  <span className="title-b">{titleB}</span>
+                </h3>
+                <p className="plat-card-desc">{item.desc}</p>
+                <ul className="plat-card-list">
+                  {item.list.map(li => <li key={li} className="plat-card-li">{li}</li>)}
+                </ul>
+              </motion.div>
+            );
+          })}
         </motion.div>
 
         <motion.div
@@ -381,65 +390,119 @@ const NvisionAI = () => {
         >
           <motion.div className="tam-card" variants={cardItem}>
             <div className="tam-header">
-              <div className="tam-icon-box insurance"><Shield size={24} /></div>
+              <div className="tam-icon-box insurance"><Shield size={20} /></div>
               <div className="tam-header-text">
-                <div className="tam-title serif">Insurance TAM</div>
+                <div className="tam-title">Insurance Opportunities</div>
                 <div className="tam-sub">Total Addressable Market: $83B</div>
               </div>
             </div>
-            <div className="tam-rows">
-              <div className="tam-row"><span>Auto Claims Processing</span><span className="val">$35M potential</span></div>
-              <div className="tam-row"><span>P&amp;C Inspection</span><span className="val">$16M potential</span></div>
-              <div className="tam-row"><span>Workers Compensation</span><span className="val">$15M potential</span></div>
-              <div className="tam-row"><span>Fleet Insurance</span><span className="val">$25M potential</span></div>
+            <div className="tam-tags">
+              <div className="tam-tag">
+                <div className="tam-tag-label">Auto Claims Processing</div>
+                <div className="tam-tag-val">$35M</div>
+              </div>
+              <div className="tam-tag">
+                <div className="tam-tag-label">P&amp;C Inspection</div>
+                <div className="tam-tag-val">$16M</div>
+              </div>
+              <div className="tam-tag">
+                <div className="tam-tag-label">Workers Compensation</div>
+                <div className="tam-tag-val">$15M</div>
+              </div>
+              <div className="tam-tag">
+                <div className="tam-tag-label">Fleet Insurance</div>
+                <div className="tam-tag-val">$25M</div>
+              </div>
             </div>
-            <div className="tam-footer">
-              <span className="footer-label">Total Insurance Opportunity</span>
-              <span className="footer-val serif">$<Counter to={91} suffix="M" /></span>
+            <div className="tam-sum">
+              <span className="tam-sum-label">SUM</span>
+              <span className="tam-sum-val">$<Counter to={91} suffix="M" /></span>
             </div>
           </motion.div>
 
           <motion.div className="tam-card" variants={cardItem}>
             <div className="tam-header">
-              <div className="tam-icon-box banking"><Building2 size={24} /></div>
+              <div className="tam-icon-box banking"><Building2 size={20} /></div>
               <div className="tam-header-text">
-                <div className="tam-title serif">Banking TAM</div>
+                <div className="tam-title">Banking Opportunities</div>
                 <div className="tam-sub">Total Addressable Market: $16B</div>
               </div>
             </div>
-            <div className="tam-rows">
-              <div className="tam-row"><span>ATM &amp; Branch Security</span><span className="val">$14M potential</span></div>
-              <div className="tam-row"><span>Fraud Detection</span><span className="val">$17M potential</span></div>
-              <div className="tam-row"><span>Construction Monitoring</span><span className="val">$9.6M potential</span></div>
-              <div className="tam-row"><span>Collateral Verification</span><span className="val">$3M potential</span></div>
+            <div className="tam-tags">
+              <div className="tam-tag">
+                <div className="tam-tag-label">ATM &amp; Branch Security</div>
+                <div className="tam-tag-val">$14M</div>
+              </div>
+              <div className="tam-tag">
+                <div className="tam-tag-label">Fraud Detection</div>
+                <div className="tam-tag-val">$17M</div>
+              </div>
+              <div className="tam-tag">
+                <div className="tam-tag-label">Construction Monitoring</div>
+                <div className="tam-tag-val">$9.6M</div>
+              </div>
+              <div className="tam-tag">
+                <div className="tam-tag-label">Collateral Verification</div>
+                <div className="tam-tag-val">$3M</div>
+              </div>
             </div>
-            <div className="tam-footer">
-              <span className="footer-label">Total Banking Opportunity</span>
-              <span className="footer-val serif">$<Counter to={43.6} decimals={1} suffix="M" /></span>
+            <div className="tam-sum">
+              <span className="tam-sum-label">SUM</span>
+              <span className="tam-sum-val">$<Counter to={43.6} decimals={1} suffix="M" /></span>
             </div>
           </motion.div>
         </motion.div>
       </Section>
 
-      {/* COMPETITION */}
+      {/* COMPETITION — card-row board */}
       <Section className="comp-section">
         <div className="price-eyebrow">Competitive Landscape</div>
         <h2 className="price-title">Where NvisionAI wins</h2>
         <p className="price-sub">Purpose-built for financial services vs. generic incumbents.</p>
-        <div className="comp-table-box">
-          <table className="comp-table">
-            <thead>
-              <tr><th>Competitor</th><th>Vertical</th><th>Their Weakness</th><th>NvisionAI Advantage</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>Tractable</td><td>Auto damage AI</td><td>UK-based, expensive, slow US integration</td><td><span className="adv">US-based, faster deployment, better pricing</span></td></tr>
-              <tr><td>Snapsheet</td><td>Mobile claims</td><td>Limited AI depth, workflow-only focus</td><td><span className="adv">Deeper AI analysis + fraud detection</span></td></tr>
-              <tr><td>Mitchell / CCC</td><td>Auto valuation</td><td>Legacy systems, not AI-native</td><td><span className="adv">Modern API-first, AI-native platform</span></td></tr>
-              <tr><td>NICE</td><td>Surveillance</td><td>General purpose, expensive, complex</td><td><span className="adv">Banking-specific, simpler, faster ROI</span></td></tr>
-              <tr><td>Feedzai</td><td>Banking fraud</td><td>Payment fraud only, no physical security</td><td><span className="adv">Combined physical + document fraud</span></td></tr>
-              <tr><td>Verafin</td><td>AML/Fraud</td><td>No computer vision capability</td><td><span className="adv">Video/image analysis = new fraud vectors</span></td></tr>
-            </tbody>
-          </table>
+
+        <div className="comp-board">
+          <div className="comp-board-head">
+            <div className="ch-no">No</div>
+            <div className="ch-name">Competitor</div>
+            <div className="ch-vert">Vertical</div>
+            <div className="ch-weak">Their Weakness</div>
+            <div className="ch-adv">NvisionAI Advantage</div>
+            <div className="ch-status">Status</div>
+          </div>
+
+          <motion.div
+            className="comp-rows"
+            variants={staggerParent}
+            initial="hidden"
+            whileInView="visible"
+            viewport={sectionViewport}
+          >
+            {[
+              { name: 'Tractable',       vert: 'Auto damage AI',   weak: 'UK-based, expensive, slow US integration', adv: 'US-based, faster deployment, better pricing' },
+              { name: 'Snapsheet',       vert: 'Mobile claims',    weak: 'Limited AI depth, workflow-only focus',     adv: 'Deeper AI analysis + fraud detection' },
+              { name: 'Mitchell / CCC',  vert: 'Auto valuation',   weak: 'Legacy systems, not AI-native',             adv: 'Modern API-first, AI-native platform' },
+              { name: 'NICE',            vert: 'Surveillance',     weak: 'General purpose, expensive, complex',        adv: 'Banking-specific, simpler, faster ROI' },
+              { name: 'Feedzai',         vert: 'Banking fraud',    weak: 'Payment fraud only, no physical security',   adv: 'Combined physical + document fraud' },
+              { name: 'Verafin',         vert: 'AML/Fraud',        weak: 'No computer vision capability',              adv: 'Video/image analysis = new fraud vectors' },
+            ].map((r, idx) => (
+              <motion.div key={r.name} className="comp-row" variants={cardItem}>
+                <div className="comp-row-glow" aria-hidden="true"></div>
+                <div className="cr-num">{String(idx + 1).padStart(2, '0')}</div>
+                <div className="cr-name">{r.name}</div>
+                <div className="cr-vert">{r.vert}</div>
+                <div className="cr-weak">{r.weak}</div>
+                <div className="cr-adv">
+                  <span className="adv-pill">
+                    <span className="adv-check">✓</span>
+                    {r.adv}
+                  </span>
+                </div>
+                <div className="cr-status">
+                  <span className="status-pill status-win">WIN</span>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </Section>
 
@@ -455,7 +518,11 @@ const NvisionAI = () => {
           viewport={sectionViewport}
         >
           <motion.div className="gtm-card" variants={cardItem}>
-            <h3 className="serif">Insurance GTM</h3>
+            <span className="gtm-tag">INSURANCE</span>
+            <h3 className="gtm-card-title serif">
+              <span className="title-a">Insurance</span>
+              <span className="title-b">GTM</span>
+            </h3>
             <p>Strongest play — 3-6 month cycles</p>
             <div className="gtm-steps">
               {[
@@ -473,7 +540,11 @@ const NvisionAI = () => {
           </motion.div>
 
           <motion.div className="gtm-card" variants={cardItem}>
-            <h3 className="serif">Banking GTM</h3>
+            <span className="gtm-tag">BANKING</span>
+            <h3 className="gtm-card-title serif">
+              <span className="title-a">Banking</span>
+              <span className="title-b">GTM</span>
+            </h3>
             <p>Higher barrier, higher value</p>
             <div className="gtm-steps">
               {[
