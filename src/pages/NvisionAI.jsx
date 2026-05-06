@@ -318,7 +318,7 @@ const NvisionAI = () => {
           viewport={sectionViewport}
           transition={{ duration: 0.6, ease: 'easeOut' }}
         >
-          <h3 className="uv-title serif">Unified Value Proposition</h3>
+          <h3 className="uv-title serif">Unified <span className="uv-accent">Value Proposition</span></h3>
           <p className="uv-desc">"One AI platform, trained on 10M+ financial services images, reducing manual review by 70% across claims, security, and compliance use cases."</p>
         </motion.div>
       </Section>
