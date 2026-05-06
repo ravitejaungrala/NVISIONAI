@@ -13,6 +13,7 @@ import {
   Building2,
   ArrowRight,
   Check,
+  Sparkle,
 } from 'lucide-react';
 import './NvisionAI.css';
 
@@ -152,7 +153,11 @@ const NvisionAI = () => {
 
       <main className="main-content">
         <section className="hero">
-          <div className="hero-eyebrow">Enterprise Computer Vision · Financial Services</div>
+          <div className="hero-eyebrow">
+            <span className="eyebrow-a">Enterprise Computer Vision</span>
+            <span className="eyebrow-dot"> · </span>
+            <span className="eyebrow-b">Financial Services</span>
+          </div>
           <h1 className="hero-title">
             <span className="gold serif">Vision Intelligence</span> <br /> for Insurance &amp; Banking
           </h1>
@@ -160,7 +165,14 @@ const NvisionAI = () => {
             One AI platform — trained on millions of financial services images — automating claims, fraud detection, security monitoring, and collateral verification at scale.
           </p>
           <div className="hero-btns">
-            <button className="btn-gold">Explore Solutions <ArrowRight size={18} /></button>
+            <button className="btn-gold sparkle-btn">
+              <Sparkle size={14} className="sparkle s1" />
+              <Sparkle size={9} className="sparkle s2" />
+              <Sparkle size={7} className="sparkle s3" />
+              <Sparkle size={6} className="sparkle s4" />
+              <span className="btn-label">Explore Solutions</span>
+              <ArrowRight size={18} />
+            </button>
             <button className="btn-outline">View Platform</button>
           </div>
 
@@ -390,65 +402,61 @@ const NvisionAI = () => {
         >
           <motion.div className="tam-card" variants={cardItem}>
             <div className="tam-header">
-              <div className="tam-icon-box insurance"><Shield size={20} /></div>
-              <div className="tam-header-text">
-                <div className="tam-title">Insurance Opportunities</div>
-                <div className="tam-sub">Total Addressable Market: $83B</div>
-              </div>
+              <div className="tam-icon-box insurance"><Shield size={18} /></div>
+              <div className="tam-tl-title">INSURANCE</div>
+              <div className="tam-total">$<Counter to={91} suffix="M" /></div>
             </div>
-            <div className="tam-tags">
-              <div className="tam-tag">
-                <div className="tam-tag-label">Auto Claims Processing</div>
-                <div className="tam-tag-val">$35M</div>
+            <div className="tam-timeline">
+              <div className="tam-item">
+                <div className="tam-dot"></div>
+                <div className="tam-name">Auto Claims Processing</div>
+                <div className="tam-amt">$35M</div>
               </div>
-              <div className="tam-tag">
-                <div className="tam-tag-label">P&amp;C Inspection</div>
-                <div className="tam-tag-val">$16M</div>
+              <div className="tam-item">
+                <div className="tam-dot"></div>
+                <div className="tam-name">P&amp;C Inspection</div>
+                <div className="tam-amt">$16M</div>
               </div>
-              <div className="tam-tag">
-                <div className="tam-tag-label">Workers Compensation</div>
-                <div className="tam-tag-val">$15M</div>
+              <div className="tam-item">
+                <div className="tam-dot"></div>
+                <div className="tam-name">Workers Compensation</div>
+                <div className="tam-amt">$15M</div>
               </div>
-              <div className="tam-tag">
-                <div className="tam-tag-label">Fleet Insurance</div>
-                <div className="tam-tag-val">$25M</div>
+              <div className="tam-item">
+                <div className="tam-dot"></div>
+                <div className="tam-name">Fleet Insurance</div>
+                <div className="tam-amt">$25M</div>
               </div>
-            </div>
-            <div className="tam-sum">
-              <span className="tam-sum-label">SUM</span>
-              <span className="tam-sum-val">$<Counter to={91} suffix="M" /></span>
             </div>
           </motion.div>
 
           <motion.div className="tam-card" variants={cardItem}>
             <div className="tam-header">
-              <div className="tam-icon-box banking"><Building2 size={20} /></div>
-              <div className="tam-header-text">
-                <div className="tam-title">Banking Opportunities</div>
-                <div className="tam-sub">Total Addressable Market: $16B</div>
-              </div>
+              <div className="tam-icon-box banking"><Building2 size={18} /></div>
+              <div className="tam-tl-title">BANKING</div>
+              <div className="tam-total">$<Counter to={43.6} decimals={1} suffix="M" /></div>
             </div>
-            <div className="tam-tags">
-              <div className="tam-tag">
-                <div className="tam-tag-label">ATM &amp; Branch Security</div>
-                <div className="tam-tag-val">$14M</div>
+            <div className="tam-timeline">
+              <div className="tam-item">
+                <div className="tam-dot"></div>
+                <div className="tam-name">ATM &amp; Branch Security</div>
+                <div className="tam-amt">$14M</div>
               </div>
-              <div className="tam-tag">
-                <div className="tam-tag-label">Fraud Detection</div>
-                <div className="tam-tag-val">$17M</div>
+              <div className="tam-item">
+                <div className="tam-dot"></div>
+                <div className="tam-name">Fraud Detection</div>
+                <div className="tam-amt">$17M</div>
               </div>
-              <div className="tam-tag">
-                <div className="tam-tag-label">Construction Monitoring</div>
-                <div className="tam-tag-val">$9.6M</div>
+              <div className="tam-item">
+                <div className="tam-dot"></div>
+                <div className="tam-name">Construction Monitoring</div>
+                <div className="tam-amt">$9.6M</div>
               </div>
-              <div className="tam-tag">
-                <div className="tam-tag-label">Collateral Verification</div>
-                <div className="tam-tag-val">$3M</div>
+              <div className="tam-item">
+                <div className="tam-dot"></div>
+                <div className="tam-name">Collateral Verification</div>
+                <div className="tam-amt">$3M</div>
               </div>
-            </div>
-            <div className="tam-sum">
-              <span className="tam-sum-label">SUM</span>
-              <span className="tam-sum-val">$<Counter to={43.6} decimals={1} suffix="M" /></span>
             </div>
           </motion.div>
         </motion.div>
@@ -462,12 +470,45 @@ const NvisionAI = () => {
 
         <div className="comp-board">
           <div className="comp-board-head">
-            <div className="ch-no">No</div>
-            <div className="ch-name">Competitor</div>
-            <div className="ch-vert">Vertical</div>
-            <div className="ch-weak">Their Weakness</div>
-            <div className="ch-adv">NvisionAI Advantage</div>
-            <div className="ch-status">Status</div>
+            <div className="ch-no">
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 5h10M3 11h10M6 2L4 14M12 2L10 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+              <span>No</span>
+            </div>
+            <div className="ch-name">
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <circle cx="8" cy="6" r="3" stroke="currentColor" strokeWidth="1.5"/>
+                <path d="M2 14c0-3 2.5-5 6-5s6 2 6 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+              <span>Competitor</span>
+            </div>
+            <div className="ch-vert">
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M2 7l5-5 7 7-5 5-7-7zM5 5h.01" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              <span>Vertical</span>
+            </div>
+            <div className="ch-weak">
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <circle cx="8" cy="8" r="6.5" stroke="currentColor" strokeWidth="1.5"/>
+                <path d="M8 5v3M8 11h.01" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+              <span>Their Weakness</span>
+            </div>
+            <div className="ch-adv">
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 5h10v3a5 5 0 01-10 0V5zM6 13h4M8 11v2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              <span>NvisionAI Advantage</span>
+            </div>
+            <div className="ch-status">
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <circle cx="8" cy="8" r="2" stroke="currentColor" strokeWidth="1.5"/>
+                <path d="M8 4V8L10 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+              <span>Status</span>
+            </div>
           </div>
 
           <motion.div
@@ -489,7 +530,7 @@ const NvisionAI = () => {
                 <div className="comp-row-glow" aria-hidden="true"></div>
                 <div className="cr-num">{String(idx + 1).padStart(2, '0')}</div>
                 <div className="cr-name">{r.name}</div>
-                <div className="cr-vert">{r.vert}</div>
+                <div className="cr-vert"><span className="vert-pill">{r.vert}</span></div>
                 <div className="cr-weak">{r.weak}</div>
                 <div className="cr-adv">
                   <span className="adv-pill">
@@ -498,7 +539,7 @@ const NvisionAI = () => {
                   </span>
                 </div>
                 <div className="cr-status">
-                  <span className="status-pill status-win">WIN</span>
+                  <span className="status-pill status-win">Win</span>
                 </div>
               </motion.div>
             ))}
@@ -576,7 +617,14 @@ const NvisionAI = () => {
           <h2 className="cta-headline serif">See NvisionAI in action</h2>
           <p className="cta-sub">Book a 30-minute demo tailored to your vertical — insurance or banking.</p>
           <div className="hero-btns" style={{ justifyContent: 'center' }}>
-            <button className="btn-gold">Book a Demo <ArrowRight size={18} /></button>
+            <button className="btn-gold sparkle-btn">
+              <Sparkle size={14} className="sparkle s1" />
+              <Sparkle size={9} className="sparkle s2" />
+              <Sparkle size={7} className="sparkle s3" />
+              <Sparkle size={6} className="sparkle s4" />
+              <span className="btn-label">Book a Demo</span>
+              <ArrowRight size={18} />
+            </button>
             <button className="btn-outline">Talk to Sales</button>
           </div>
         </div>
