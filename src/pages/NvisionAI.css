@@ -526,7 +526,7 @@ h1, h2, h3, h4 {
 .plat-eyebrow,
 .price-eyebrow {
   background: transparent;
-  color: var(--orange);
+  color: var(--green);
   font-size: 11px;
   font-weight: 800;
   margin-bottom: 1rem;
@@ -545,7 +545,7 @@ h1, h2, h3, h4 {
   content: "";
   width: 24px;
   height: 2px;
-  background: var(--orange);
+  background: var(--green);
 }
 
 .sol-title,
@@ -559,6 +559,11 @@ h1, h2, h3, h4 {
   font-weight: 900;
   letter-spacing: -0.03em;
   max-width: 900px;
+}
+.sol-title .title-accent,
+.plat-title .title-accent,
+.price-title .title-accent {
+  color: #ff4500;
 }
 .sol-sub,
 .plat-sub,

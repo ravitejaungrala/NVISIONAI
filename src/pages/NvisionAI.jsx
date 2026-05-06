@@ -214,7 +214,7 @@ const NvisionAI = () => {
       {/* SOLUTIONS */}
       <Section id="solutions" className="solutions-section">
         <div className="sol-eyebrow">Industry Solutions</div>
-        <h2 className="sol-title">Purpose-built for Financial Services</h2>
+        <h2 className="sol-title">Purpose-built <span className="title-accent">for Financial Services</span></h2>
         <p className="sol-sub">Specialized AI models trained on industry-specific data, not generic computer vision.</p>
         <div className="tabs-box">
           <div className="tabs-aside">
@@ -280,7 +280,7 @@ const NvisionAI = () => {
       {/* PLATFORM */}
       <Section id="platform" className="platform-section">
         <div className="plat-eyebrow">NeuzenAI Vision Platform</div>
-        <h2 className="plat-title serif">One platform. Six specialized solutions.</h2>
+        <h2 className="plat-title serif">One platform. <span className="title-accent">Six specialized solutions.</span></h2>
         <p className="plat-sub">"Enterprise Computer Vision for Financial Services"</p>
 
         <motion.div
@@ -326,7 +326,7 @@ const NvisionAI = () => {
       {/* PRICING */}
       <Section id="pricing" className="pricing-section">
         <div className="price-eyebrow">Pricing</div>
-        <h2 className="price-title">Transparent, scalable pricing</h2>
+        <h2 className="price-title">Transparent, <span className="title-accent">scalable pricing</span></h2>
         <p className="price-sub">Insurance: SaaS subscription model. Banking: per-location hybrid model.</p>
 
         <div className="price-context">INSURANCE — CLAIMSVISION</div>
@@ -465,7 +465,7 @@ const NvisionAI = () => {
       {/* COMPETITION — card-row board */}
       <Section className="comp-section">
         <div className="price-eyebrow">Competitive Landscape</div>
-        <h2 className="price-title">Where NvisionAI wins</h2>
+        <h2 className="price-title">Where <span className="title-accent">NvisionAI wins</span></h2>
         <p className="price-sub">Purpose-built for financial services vs. generic incumbents.</p>
 
         <div className="comp-board">
@@ -550,7 +550,7 @@ const NvisionAI = () => {
       {/* GTM */}
       <Section id="gtm" className="gtm-section">
         <div className="price-eyebrow">Go-to-Market</div>
-        <h2 className="price-title">Sales playbook by vertical</h2>
+        <h2 className="price-title">Sales <span className="title-accent">playbook by vertical</span></h2>
         <motion.div
           className="gtm-grid"
           variants={staggerParent}
