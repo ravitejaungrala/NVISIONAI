@@ -747,11 +747,11 @@ h1, h2, h3, h4 {
   counter-reset: card;
 }
 
-/* Each card — dashed border, alternating accent color per card */
+/* Each card — solid border, alternating accent color per card */
 .plat-card {
   background: #ffffff;
   color: var(--black);
-  border: 2px dashed var(--orange) !important;
+  border: 1.5px solid var(--orange) !important;
   padding: 1.75rem 1.75rem 1.5rem;
   border-radius: 18px;
   transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
@@ -1576,13 +1576,13 @@ h1, h2, h3, h4 {
    ============================================================ */
 .gtm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; }
 
-/* GTM card — dashed border, alternating accent per card */
+/* GTM card — solid border, alternating accent per card */
 .gtm-card {
   background: #ffffff;
   color: var(--black);
   padding: 1.5rem 1.75rem 1.5rem;
   border-radius: 18px;
-  border: 2px dashed var(--orange) !important;
+  border: 1.5px solid var(--orange) !important;
   transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   box-shadow: none;
   position: relative;
