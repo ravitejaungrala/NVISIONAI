@@ -44,20 +44,101 @@ const Counter = ({
   return <motion.span ref={ref}>{display}</motion.span>;
 };
 
-/* ---------------- Reusable motion variants ---------------- */
+/* ---------------- Kater.ai-inspired motion variants ---------------- */
+// Kater's signature easing: power4.out / outQuart — confident decel, no bounce
+const EASE_OUT_QUART = [0.165, 0.84, 0.44, 1];
+
+// Section blocks fade up with deeper Y travel + heavier blur (focus-pull)
 const fadeUp = {
-  hidden: { opacity: 0, y: 32 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: 'easeOut' } },
+  hidden: {
+    opacity: 0,
+    y: 100,
+    filter: 'blur(12px)',
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: 'blur(0px)',
+    transition: {
+      duration: 1,
+      ease: EASE_OUT_QUART,
+    },
+  },
 };
+
+// Grid container — 100ms stagger cascade (Kater's signature rhythm)
 const staggerParent = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } },
+  visible: {
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.12,
+    },
+  },
 };
+
+// Cards: 3D tilt-in with scale + rotation + blur clearing
 const cardItem = {
-  hidden: { opacity: 0, y: 28, scale: 0.97 },
-  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.55, ease: 'easeOut' } },
+  hidden: {
+    opacity: 0,
+    y: 100,
+    scale: 0.88,
+    rotateZ: 4,
+    filter: 'blur(10px)',
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    rotateZ: 0,
+    filter: 'blur(0px)',
+    transition: {
+      duration: 0.95,
+      ease: EASE_OUT_QUART,
+    },
+  },
 };
-const sectionViewport = { once: true, amount: 0.15 };
+
+// Side-slide variants — paired cards meet in the middle
+const slideInLeft = {
+  hidden: { opacity: 0, x: -100, scale: 0.94, filter: 'blur(10px)' },
+  visible: {
+    opacity: 1,
+    x: 0,
+    scale: 1,
+    filter: 'blur(0px)',
+    transition: { duration: 1, ease: EASE_OUT_QUART },
+  },
+};
+const slideInRight = {
+  hidden: { opacity: 0, x: 100, scale: 0.94, filter: 'blur(10px)' },
+  visible: {
+    opacity: 1,
+    x: 0,
+    scale: 1,
+    filter: 'blur(0px)',
+    transition: { duration: 1, ease: EASE_OUT_QUART },
+  },
+};
+
+// Headline word-by-word reveal (Kater's SplitText pattern)
+const wordContainer = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.08, delayChildren: 0.05 },
+  },
+};
+const wordReveal = {
+  hidden: { opacity: 0, y: 40, filter: 'blur(8px)' },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: 'blur(0px)',
+    transition: { duration: 0.85, ease: EASE_OUT_QUART },
+  },
+};
+
+const sectionViewport = { once: true, amount: 0.2 };
 
 /* ---------------- Section wrapper ---------------- */
 const Section = ({ as = 'section', className, id, children }) => (
@@ -134,9 +215,9 @@ const NvisionAI = () => {
     <div className="nvision-wrapper">
       <motion.nav
         className="navbar"
-        initial={{ y: -40, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, ease: 'easeOut' }}
+        initial={{ y: -50, opacity: 0, filter: 'blur(8px)' }}
+        animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="logo serif">Nvision<span className="gold">AI</span></div>
         <div className="nav-links">
@@ -165,13 +246,9 @@ const NvisionAI = () => {
             One AI platform — trained on millions of financial services images — automating claims, fraud detection, security monitoring, and collateral verification at scale.
           </p>
           <div className="hero-btns">
-            <button className="btn-gold sparkle-btn">
-              <Sparkle size={14} className="sparkle s1" />
-              <Sparkle size={9} className="sparkle s2" />
-              <Sparkle size={7} className="sparkle s3" />
-              <Sparkle size={6} className="sparkle s4" />
+            <button className="btn-gold">
               <span className="btn-label">Explore Solutions</span>
-              <ArrowRight size={18} />
+              <ArrowRight size={16} />
             </button>
             <button className="btn-outline">View Platform</button>
           </div>
@@ -290,22 +367,30 @@ const NvisionAI = () => {
           whileInView="visible"
           viewport={sectionViewport}
         >
-          {platformItems.map(item => {
+          {platformItems.map((item, idx) => {
             // Split CamelCase title into two parts for two-tone styling
             const split = item.title.match(/^([A-Z][a-z]+)([A-Z].*)$/);
             const titleA = split ? split[1] : item.title;
             const titleB = split ? split[2] : '';
+            const num = String(idx + 1).padStart(2, '0');
             return (
               <motion.div key={item.title} className="plat-card" variants={cardItem}>
-                <span className="plat-tag">{item.type}</span>
+                <div className="plat-preview">
+                  <span className="plat-tag">{item.type}</span>
+                  <span className="preview-num">{num}</span>
+                  <div className="plat-preview-title">
+                    <span className="ppt-a">{titleA}</span>
+                    <span className="ppt-b">{titleB}</span>
+                  </div>
+                </div>
                 <h3 className="plat-card-title serif">
                   <span className="title-a">{titleA}</span>
                   <span className="title-b">{titleB}</span>
                 </h3>
                 <p className="plat-card-desc">{item.desc}</p>
-                <ul className="plat-card-list">
-                  {item.list.map(li => <li key={li} className="plat-card-li">{li}</li>)}
-                </ul>
+                <a className="plat-learn-more" href="#">
+                  Learn more <ArrowRight size={14} />
+                </a>
               </motion.div>
             );
           })}
@@ -318,8 +403,11 @@ const NvisionAI = () => {
           viewport={sectionViewport}
           transition={{ duration: 0.6, ease: 'easeOut' }}
         >
-          <h3 className="uv-title serif">Unified <span className="uv-accent">Value Proposition</span></h3>
-          <p className="uv-desc">"One AI platform, trained on 10M+ financial services images, reducing manual review by 70% across claims, security, and compliance use cases."</p>
+          <div className="uv-content">
+            <h3 className="uv-title serif">Unified <span className="uv-accent">Value Proposition</span></h3>
+            <p className="uv-desc">"One AI platform, trained on 10M+ financial services images, reducing manual review by 70% across claims, security, and compliance use cases."</p>
+          </div>
+          <button className="uv-cta">Learn More</button>
         </motion.div>
       </Section>
 
@@ -376,6 +464,7 @@ const NvisionAI = () => {
               className={`price-card ${plan.dark ? 'dark' : ''}`}
               variants={cardItem}
             >
+              <div className="bank-check"><Check size={14} strokeWidth={3} /></div>
               <div className="plan-name">{plan.name}</div>
               <div className="plan-price-row">
                 <span className="plan-price serif">{plan.price}</span>
@@ -400,7 +489,7 @@ const NvisionAI = () => {
           whileInView="visible"
           viewport={sectionViewport}
         >
-          <motion.div className="tam-card" variants={cardItem}>
+          <motion.div className="tam-card" variants={slideInLeft}>
             <div className="tam-header">
               <div className="tam-icon-box insurance"><Shield size={18} /></div>
               <div className="tam-tl-title">INSURANCE</div>
@@ -430,7 +519,7 @@ const NvisionAI = () => {
             </div>
           </motion.div>
 
-          <motion.div className="tam-card" variants={cardItem}>
+          <motion.div className="tam-card" variants={slideInRight}>
             <div className="tam-header">
               <div className="tam-icon-box banking"><Building2 size={18} /></div>
               <div className="tam-tl-title">BANKING</div>
@@ -513,7 +602,10 @@ const NvisionAI = () => {
 
           <motion.div
             className="comp-rows"
-            variants={staggerParent}
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.07, delayChildren: 0.1 } },
+            }}
             initial="hidden"
             whileInView="visible"
             viewport={sectionViewport}
@@ -526,7 +618,19 @@ const NvisionAI = () => {
               { name: 'Feedzai',         vert: 'Banking fraud',    weak: 'Payment fraud only, no physical security',   adv: 'Combined physical + document fraud' },
               { name: 'Verafin',         vert: 'AML/Fraud',        weak: 'No computer vision capability',              adv: 'Video/image analysis = new fraud vectors' },
             ].map((r, idx) => (
-              <motion.div key={r.name} className="comp-row" variants={cardItem}>
+              <motion.div
+                key={r.name}
+                className="comp-row"
+                variants={{
+                  hidden: { opacity: 0, x: -30, filter: 'blur(4px)' },
+                  visible: {
+                    opacity: 1,
+                    x: 0,
+                    filter: 'blur(0px)',
+                    transition: { type: 'spring', stiffness: 110, damping: 18 },
+                  },
+                }}
+              >
                 <div className="comp-row-glow" aria-hidden="true"></div>
                 <div className="cr-num">{String(idx + 1).padStart(2, '0')}</div>
                 <div className="cr-name">{r.name}</div>
@@ -558,7 +662,7 @@ const NvisionAI = () => {
           whileInView="visible"
           viewport={sectionViewport}
         >
-          <motion.div className="gtm-card" variants={cardItem}>
+          <motion.div className="gtm-card" variants={slideInLeft}>
             <span className="gtm-tag">INSURANCE</span>
             <h3 className="gtm-card-title serif">
               <span className="title-a">Insurance</span>
@@ -580,7 +684,7 @@ const NvisionAI = () => {
             </div>
           </motion.div>
 
-          <motion.div className="gtm-card" variants={cardItem}>
+          <motion.div className="gtm-card" variants={slideInRight}>
             <span className="gtm-tag">BANKING</span>
             <h3 className="gtm-card-title serif">
               <span className="title-a">Banking</span>
@@ -617,13 +721,9 @@ const NvisionAI = () => {
           <h2 className="cta-headline serif">See NvisionAI in action</h2>
           <p className="cta-sub">Book a 30-minute demo tailored to your vertical — insurance or banking.</p>
           <div className="hero-btns" style={{ justifyContent: 'center' }}>
-            <button className="btn-gold sparkle-btn">
-              <Sparkle size={14} className="sparkle s1" />
-              <Sparkle size={9} className="sparkle s2" />
-              <Sparkle size={7} className="sparkle s3" />
-              <Sparkle size={6} className="sparkle s4" />
+            <button className="btn-gold">
               <span className="btn-label">Book a Demo</span>
-              <ArrowRight size={18} />
+              <ArrowRight size={16} />
             </button>
             <button className="btn-outline">Talk to Sales</button>
           </div>
