@@ -1,76 +1,80 @@
 # NvisionAI — Project Design System
 
-This file is the source of truth for visual styling on this project. Any UI work, new components, edits, or copy-paste from external snippets MUST conform to these rules.
+This file is the source of truth for visual styling. Any UI work MUST conform to these rules.
 
-## Color palette (only these — nothing else)
+> **Note:** The project was redesigned into a premium, futuristic SaaS landing page.
+> It now uses **Tailwind CSS v4 + Framer Motion + Lenis + GSAP + Three.js**.
+> The previous "plain-CSS only, no gradients, no glass" rules have been superseded.
 
-| Token        | Hex / value | Where it is allowed                                  |
-|--------------|-------------|------------------------------------------------------|
-| White        | `#ffffff`   | Page background. Cards. Buttons. Anywhere a fill is needed. |
-| Brand orange | `#ff4500`   | Text, borders, box edges, accents, primary CTAs.     |
-| Green        | `#16a34a`   | Text, borders, box edges, success/positive accents, secondary CTAs. |
-| Black        | `#000000`   | Text, borders, box edges. Use sparingly — primary text only. |
+## Stack
 
-**Hard rules:**
+- **Tailwind CSS v4** via `@tailwindcss/vite` (configured in `vite.config.js`).
+  Design tokens live in the `@theme` block of `src/index.css`. Use Tailwind
+  utility classes for all styling — do not add component stylesheets.
+- **Framer Motion** — scroll reveals, stagger, counters, hover micro-interactions.
+- **Lenis** — momentum smooth scroll (`useLenis` hook in `NvisionAI.jsx`).
+- **GSAP + ScrollTrigger** — scroll-progress bar; synced to Lenis via `gsap.ticker`.
+- **Three.js / @react-three/fiber / drei** — the floating distorted hero orb.
 
-1. **Background is always white (`#ffffff`).** Never apply colored fills to large surfaces (sections, hero, footer, cards). Single exception: a small intentional dark element like the "Most Popular" pricing card or a TAM header band, where black is used deliberately as a focal point.
-2. **No tinted color washes on large surfaces.** Do not use values like `rgba(255, 69, 0, 0.08)` as a section/hero/footer/large-card background. Approved exceptions: (a) competitor-row stripes at ≤ 0.03 opacity, (b) the TAM "Tagged Grid" small inner tag boxes which use ~0.05 orange or green tint with a matching colored border to communicate the vertical at a glance. Do not extend the tint exception to bigger containers.
-3. **No grays.** Do not use `#94a3b8`, `#64748b`, `#475569`, `#334155`, `slate`, `gray-500`, `text-muted-foreground`, etc. Secondary / muted text is solid black or `var(--ink)` (near-black) — never gray.
-4. **Borders, dividers, accents, edges**: orange (`#ff4500`), green (`#16a34a`), or black. Pick one. No gray borders.
-5. **Text colors**: black for body, orange (`#ff4500`) for brand emphasis / metrics / eyebrows, green for positive/success states.
-6. **No other hex values are permitted in CSS** without first updating this file.
+## Color palette
 
-## CSS variables (use these, do not hardcode hex)
+| Token        | Value     | Usage                                                 |
+|--------------|-----------|-------------------------------------------------------|
+| White        | `#ffffff` | Page background (always white/soft white).            |
+| Ink          | `#0a0a0a` | Body + heading text (use `text-ink`, `/70` opacity for muted). |
+| Brand orange | `#ff4500` | Primary accent, CTAs, metrics, borders, glows.        |
+| Orange soft  | `#fff1ec` | Tinted pill/card backgrounds, accent fills.           |
+| Green        | `#16a34a` | Secondary accent, success, banking vertical.          |
+| Green soft   | `#effaf3` | Tinted green backgrounds.                              |
 
-These are defined at the top of `src/pages/NvisionAI.css`:
+**Rules:**
+1. Background stays white/soft-white. Large dark surfaces are allowed only as
+   intentional focal elements via the `.glass-dark` utility (popular pricing
+   card, bento hero card, TAM header band).
+2. **No gray text.** Muted text = `text-ink/70`, `/65`, `/55` (ink at opacity).
+   Never `text-gray-*`, `slate`, etc.
+3. Subtle orange/green gradients and glassmorphism are encouraged — use the
+   `.glass`, `.glass-dark`, `.text-gradient`, `.mesh-bg` utilities in `index.css`.
+   Keep washes subtle; the page must still read as white + clean.
+4. New colors require updating the `@theme` tokens here and in `index.css` first.
 
-```css
---bg: #ffffff;
---orange: #ff4500;
---green: #16a34a;
---black: #000000;
---ink: #0a0a0a;        /* near-black for body text */
---orange-mid: rgba(255, 69, 0, 0.35);   /* allowed only for borders */
---orange-soft: rgba(255, 69, 0, 0.08);  /* allowed only for thin dividers */
---green-mid: rgba(22, 163, 74, 0.4);    /* allowed only for borders */
-```
+## Utilities (defined in `src/index.css`)
 
-When you add new components, reuse these variables. If a color need can't be expressed with the variables above, the design is wrong — adjust the design.
-
-## Component patterns
-
-- **Buttons (primary)**: orange background, white text, orange shadow.
-- **Buttons (secondary / outline)**: silver glassmorphism (translucent gradient + backdrop-filter blur). Text stays black.
-- **Cards**: white background, orange border (`var(--orange-mid)` resting, `var(--orange)` on hover), 16–20px radius. Hover lifts 3–6px with orange-tinted shadow.
-- **Eyebrows / tags**: small uppercase mono (`DM Mono`), 9–11px, with letter-spacing. Solid green pill with white text, OR solid black pill with white text. No outlined-only chips.
-- **Tables**: white headers, per-column colored 3px underlines (black/orange/black/green by default), borders in `--orange-soft`, optional very-light row stripes (≤ 0.03 opacity) cycling through orange / green / black / white.
-- **Pricing — Most Popular card**: black background, white text, green check icons, orange CTA button. This is intentional; do not remove.
-- **TAM cards header band**: black background, white text. Footer total bar: white background, themed colored border + 4px left accent strip.
+- `.glass` — translucent white glass card (blur + orange-tinted shadow).
+- `.glass-dark` — near-black glass for focal elements.
+- `.text-gradient` — orange→green text clip.
+- `.mesh-bg` — subtle multi-radial orange/green ambient background.
+- Animations via `@theme`: `animate-marquee`, `animate-float-slow`,
+  `animate-pulse-glow`, `animate-shimmer`.
+- `prefers-reduced-motion` is respected globally.
 
 ## Typography
 
-- Body: `DM Sans`
-- Display headings (`.serif`): `DM Serif Display`
-- Code-ish / metrics / eyebrows: `DM Mono`
+- Body: `font-sans` (DM Sans, weight ≥ 500 for body).
+- Display: `font-serif` (DM Serif Display) — headings, prices, metrics.
+- Mono / eyebrows / tags: `font-mono` (DM Mono), uppercase, wide tracking.
 
-Body text is at least weight 500. Metric labels and eyebrows are weight 800–900 with letter-spacing 0.10–0.18em uppercase.
+## Component patterns
 
-## Animations
-
-- Page-level callouts (final CTA + footer): orange `pulse-orange` glow keyframe, 2.5s infinite.
-- Card hovers: 0.3s ease translateY(-3 to -6px), border tint to `--orange`, soft orange box-shadow.
-- Button hovers: never invert to plain black/white. Keep the orange brand language.
+- **Buttons (primary):** `bg-orange text-white` + orange drop shadow,
+  `whileHover scale 1.04`.
+- **Buttons (secondary):** `.glass` or white + `ring-1 ring-ink/10`.
+- **Cards:** `.glass`, ~24px radius, `whileHover={{ y: -6/-10 }}`,
+  orange blur accent on hover.
+- **Eyebrows/tags:** mono 10–11px uppercase, `bg-orange-soft`/`bg-green-soft` pills.
+- **Pricing — popular card:** `.glass-dark`, `ring-2 ring-orange`, green checks,
+  orange CTA. Keep it.
+- **Sections:** wrapped in `<Reveal>` for scroll fade-up; headings via `<SectionHead>`.
 
 ## Files of record
 
-- `src/pages/NvisionAI.css` — single stylesheet, design system at top under `:root`.
-- `src/pages/NvisionAI.jsx` — page structure.
+- `src/index.css` — Tailwind import, `@theme` tokens, keyframes, glass utilities.
+- `src/pages/NvisionAI.jsx` — full page, all components and section data.
+- `vite.config.js` — React + Tailwind plugins.
 
 ## Forbidden
 
-- Tailwind utility classes (project uses plain CSS).
-- New color values outside this palette.
-- Gray text or borders.
-- Colored section backgrounds.
-- Bullet markers other than green dots, orange dots, or a green ✓ icon.
-- Decorative ✕ / negative markers in copy that lists weaknesses (already removed from competitor table).
+- Gray text/borders (use `ink` at opacity).
+- Hardcoded hex outside the `@theme` tokens.
+- Heavy/clashing color washes that break the clean white feel.
+- Component CSS files / global non-Tailwind styles (except `index.css` utilities).
