@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 140" role="img" aria-label="ATM feed scene">
+  <rect width="240" height="140" fill="#ffffff"/>
+  <rect x="4" y="4" width="232" height="132" rx="10" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+  <rect x="24" y="24" width="106" height="90" rx="8" fill="#ffffff" stroke="#16a34a" stroke-width="3"/>
+  <rect x="140" y="28" width="76" height="86" rx="8" fill="#ffffff" stroke="#ff4500" stroke-width="3"/>
+  <rect x="38" y="38" width="78" height="34" rx="6" fill="#000000"/>
+  <rect x="52" y="82" width="50" height="8" rx="4" fill="#ff4500"/>
+  <circle cx="178" cy="52" r="16" fill="#16a34a"/>
+  <path d="M170 52 L176 58 L186 46" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="152" y1="82" x2="204" y2="82" stroke="#000000" stroke-width="2"/>
+  <line x1="152" y1="96" x2="190" y2="96" stroke="#000000" stroke-width="2"/>
+  <circle cx="30" cy="24" r="9" fill="#16a34a"/>
+  <text x="44" y="28" font-size="12" font-family="DM Sans, Arial, sans-serif" fill="#000000">ATM + KYC Feed</text>
+</svg>
