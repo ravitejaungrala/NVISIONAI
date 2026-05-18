@@ -148,8 +148,8 @@ const Nav = () => {
   ];
   return (
     <div className="fixed inset-x-0 top-0 z-50 nav-pill">
-      <div className="mx-auto flex h-[64px] max-w-[1180px] items-center justify-between px-7">
-        <span className="font-serif text-[22px] font-bold tracking-[-0.02em] text-ink">
+      <div className="mx-auto flex h-[68px] max-w-[1200px] items-center justify-between px-6 md:px-8">
+        <span className="font-serif text-[21px] font-bold tracking-[-0.02em] text-ink">
           Nvision<span className="text-orange">AI</span>
         </span>
         <div className="hidden items-center gap-9 md:flex">
@@ -157,7 +157,7 @@ const Nav = () => {
             <a
               key={l}
               href={h}
-              className="text-[15px] font-medium text-ink/70 transition-colors hover:text-ink"
+              className="text-[15px] font-medium text-ink/80 transition-colors hover:text-orange"
             >
               {l}
             </a>
@@ -165,7 +165,7 @@ const Nav = () => {
         </div>
         <a
           href="#cta"
-          className="group inline-flex items-center gap-2 rounded-full bg-orange px-6 py-3 text-[15px] font-semibold text-white shadow-[0_8px_22px_-8px_rgba(82,102,235,0.65)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-8px_rgba(82,102,235,0.75)]"
+          className="group inline-flex items-center gap-2 rounded-full bg-orange px-5 py-2.5 text-[14px] font-semibold text-white shadow-[0_10px_24px_-10px_rgba(255,69,0,0.6)] transition-all duration-200 hover:-translate-y-0.5"
         >
           Get early access
           <span className="transition-transform duration-200 group-hover:translate-x-0.5">
@@ -808,78 +808,94 @@ const NvisionAI = () => {
         </Section>
 
         {/* SOLUTIONS — compact, single screen */}
-        <Section id="solutions" tone="white" className="!py-16">
-          <div className="flex flex-col items-center text-center">
-            <Kicker>Solutions</Kicker>
-            <h2 className="font-serif mt-3 text-[36px] leading-[1.08] font-bold tracking-[-0.02em] text-ink md:text-[44px]">
-              Built for your vertical
-            </h2>
-            <div className="mt-7 frosted inline-flex rounded-full p-1">
-              {Object.keys(solutions).map((id) => (
-                <button
-                  key={id}
-                  onClick={() => setActiveTab(id)}
-                  className={`rounded-full px-7 py-2 text-[15px] font-semibold transition-colors ${
-                    activeTab === id
-                      ? 'bg-orange text-white'
-                      : 'text-ink/60 hover:text-ink'
-                  }`}
-                >
-                  {solutions[id].title}
-                </button>
-              ))}
-            </div>
-          </div>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.34, ease: EASE }}
-              className="mt-10"
-            >
-              <div className="grid gap-4 sm:grid-cols-2">
-                {solutions[activeTab].items.map((it) => (
-                  <div
-                    key={it.t}
-                    className="group rounded-2xl border border-steel bg-snow p-6 transition-all duration-200 hover:-translate-y-1 hover:border-steel hover:shadow-[0_18px_40px_-26px_rgba(82,102,235,0.4)]"
+        <Section id="solutions" tone="white">
+          <div className="grid gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:gap-20">
+            {/* sticky narrative */}
+            <div className="lg:sticky lg:top-28 lg:h-fit">
+              <Kicker>Solutions</Kicker>
+              <h2 className="font-serif mt-4 text-[40px] leading-[1.06] font-bold tracking-[-0.02em] text-ink md:text-[52px]">
+                Built for your{' '}
+                <span className="text-gradient">vertical</span>
+              </h2>
+              <div className="mt-7 inline-flex rounded-full border border-steel p-1">
+                {Object.keys(solutions).map((id) => (
+                  <button
+                    key={id}
+                    onClick={() => setActiveTab(id)}
+                    className={`rounded-full px-6 py-2 text-[14px] font-semibold transition-colors ${
+                      activeTab === id
+                        ? 'bg-orange text-white'
+                        : 'text-muted hover:text-ink'
+                    }`}
                   >
-                    <h4 className="font-serif text-[20px] font-bold tracking-[-0.02em] text-ink">
-                      {it.t}
-                    </h4>
-                    <p className="mt-2 text-[14px] leading-[1.5] text-muted">
-                      {it.c}
-                    </p>
-                    <p
-                      className={`mt-4 inline-block rounded-full px-3 py-1 text-[12px] font-semibold ${
-                        activeTab === 'banking'
-                          ? 'bg-cool text-muted'
-                          : 'bg-cool text-ink'
-                      }`}
-                    >
-                      {it.m}
-                    </p>
-                  </div>
+                    {solutions[id].title}
+                  </button>
                 ))}
               </div>
-              <div className="mt-10">
-                <div className="mb-4 text-center text-[12px] font-bold tracking-[0.16em] text-muted uppercase">
+              <AnimatePresence mode="wait">
+                <motion.p
+                  key={activeTab}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="mt-7 max-w-sm text-[16px] leading-[1.6] text-muted"
+                >
+                  {solutions[activeTab].mainDesc}
+                </motion.p>
+              </AnimatePresence>
+              <div className="mt-8">
+                <div className="text-[11px] font-bold tracking-[0.16em] text-muted uppercase">
                   Integrates with
                 </div>
-                <div className="flex flex-wrap items-center justify-center gap-3">
+                <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1.5 text-[14px] font-medium text-charcoal">
                   {solutions[activeTab].integrations.map((int) => (
-                    <span
-                      key={int}
-                      className="rounded-full border border-steel bg-snow px-4 py-2 text-[14px] font-semibold text-ink shadow-[0_2px_8px_-4px_rgba(0,0,0,0.12)]"
-                    >
-                      {int}
-                    </span>
+                    <span key={int}>{int}</span>
                   ))}
                 </div>
               </div>
-            </motion.div>
-          </AnimatePresence>
+            </div>
+
+            {/* editorial item list */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.34, ease: EASE }}
+                className="border-t border-ink/15"
+              >
+                {solutions[activeTab].items.map((it, i) => (
+                  <div
+                    key={it.t}
+                    className="group flex items-start gap-5 border-b border-steel py-5"
+                  >
+                    <span className="font-mono text-[12px] tabular-nums text-muted pt-1">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <div className="flex-1">
+                      <div className="flex items-baseline justify-between gap-4">
+                        <h4 className="font-serif text-[19px] font-bold tracking-[-0.02em] text-ink">
+                          {it.t}
+                        </h4>
+                        <span
+                          className={`shrink-0 text-[12px] font-semibold ${
+                            activeTab === 'banking' ? 'text-green' : 'text-orange'
+                          }`}
+                        >
+                          {it.m}
+                        </span>
+                      </div>
+                      <p className="mt-1.5 max-w-lg text-[13px] leading-[1.5] text-muted">
+                        {it.c}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </Section>
 
         {/* PLATFORM — compact, single screen */}
@@ -889,63 +905,85 @@ const NvisionAI = () => {
             kicker="The platform"
             title="Six solutions. One platform."
           />
-          <div className="mt-12 grid gap-6 lg:grid-cols-[1.1fr_1fr]">
-            {/* selector grid */}
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-2">
-              {platformItems.map((p, i) => (
-                <button
-                  key={p.title}
-                  onClick={() => setActivePlatform(i)}
-                  className={`rounded-2xl border p-4 text-left transition-all duration-200 ${
-                    activePlatform === i
-                      ? 'border-steel bg-cool shadow-[0_10px_24px_-14px_rgba(82,102,235,0.5)]'
-                      : 'border-steel bg-snow hover:border-steel'
-                  }`}
-                >
-                  <span
-                    className={`text-[11px] font-semibold tracking-wide uppercase ${
-                      p.type === 'Banking' ? 'text-green' : 'text-orange'
-                    }`}
+          <div className="mt-14 grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-16">
+            {/* editorial index list */}
+            <div className="border-t border-steel">
+              {platformItems.map((p, i) => {
+                const on = activePlatform === i;
+                return (
+                  <button
+                    key={p.title}
+                    onClick={() => setActivePlatform(i)}
+                    className="group flex w-full items-center gap-5 border-b border-steel py-4 text-left"
                   >
-                    {p.type}
-                  </span>
-                  <h4 className="font-serif mt-1 text-[19px] font-bold tracking-[-0.02em] text-ink">
-                    {p.title}
-                  </h4>
-                </button>
-              ))}
+                    <span
+                      className={`font-mono text-[13px] tabular-nums transition-colors ${
+                        on ? 'text-ink' : 'text-muted'
+                      }`}
+                    >
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span
+                      className={`font-serif flex-1 text-[20px] font-bold tracking-[-0.02em] transition-all duration-300 ${
+                        on
+                          ? 'translate-x-1 text-ink'
+                          : 'text-muted group-hover:text-ink'
+                      }`}
+                    >
+                      {p.title}
+                    </span>
+                    <span
+                      className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${
+                        on
+                          ? p.type === 'Banking'
+                            ? 'bg-green scale-150'
+                            : 'bg-orange scale-150'
+                          : 'bg-steel'
+                      }`}
+                    />
+                  </button>
+                );
+              })}
             </div>
 
-            {/* detail panel */}
-            <div className="glassy p-7">
+            {/* large spotlight */}
+            <div className="relative">
+              <span className="font-serif pointer-events-none absolute -top-10 right-0 select-none text-[180px] font-bold leading-none text-ink/[0.04]">
+                {String(activePlatform + 1).padStart(2, '0')}
+              </span>
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activePlatform}
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.3, ease: EASE }}
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.35, ease: EASE }}
+                  className="relative"
                 >
                   <span
-                    className={`text-[13px] font-semibold tracking-wide uppercase ${
+                    className={`text-[13px] font-semibold tracking-[0.16em] uppercase ${
                       active.type === 'Banking' ? 'text-green' : 'text-orange'
                     }`}
                   >
                     {active.type}
                   </span>
-                  <h3 className="font-serif mt-2 text-[30px] font-bold tracking-[-0.02em] text-ink">
+                  <h3 className="font-serif mt-3 text-[44px] leading-[1.05] font-bold tracking-[-0.02em] text-ink md:text-[56px]">
                     {active.title}
                   </h3>
-                  <p className="mt-3 text-[15px] leading-[1.5] text-muted">
+                  <p className="mt-5 max-w-xl text-[18px] leading-[1.55] text-muted">
                     {active.desc}
                   </p>
-                  <div className="mt-5 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+                  <div className="mt-9 grid gap-x-10 gap-y-px sm:grid-cols-2">
                     {active.list.map((li) => (
                       <div
                         key={li}
-                        className="flex items-start gap-2 rounded-xl border border-steel bg-cool/70 px-3.5 py-3 text-[13px] leading-snug text-ink"
+                        className="flex items-center gap-3 border-b border-steel py-4 text-[15px] text-ink"
                       >
-                        <Check size={15} className="mt-0.5 shrink-0 text-ink" />
+                        <span
+                          className={`h-1.5 w-1.5 shrink-0 rounded-full ${
+                            active.type === 'Banking' ? 'bg-green' : 'bg-orange'
+                          }`}
+                        />
                         {li}
                       </div>
                     ))}
@@ -967,27 +1005,58 @@ const NvisionAI = () => {
           </div>
         </Section>
 
-        {/* GRADIENT SHOWCASE — theatrical full-bleed */}
+        {/* UNIFIED STATEMENT — dark focal band */}
         <section className="bg-fog px-6 py-6">
-          <div className="gradient-orange relative mx-auto flex min-h-[78vh] max-w-[1280px] flex-col items-center justify-center overflow-hidden rounded-[28px] px-6 py-28 text-center">
+          <div className="relative mx-auto max-w-[1280px] overflow-hidden rounded-[28px] bg-night px-8 py-24 md:px-16 md:py-28">
+            {/* brand glow */}
+            <div
+              className="pointer-events-none absolute -top-28 -left-20 h-80 w-80 rounded-full blur-[120px]"
+              style={{ background: 'rgba(255,69,0,0.28)' }}
+            />
+            <div
+              className="pointer-events-none absolute -bottom-28 -right-16 h-80 w-80 rounded-full blur-[130px]"
+              style={{ background: 'rgba(22,163,74,0.22)' }}
+            />
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.9, ease: EASE }}
+              transition={{ duration: 0.8, ease: EASE }}
+              className="relative grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]"
             >
-              <span className="text-[20px] font-semibold text-white/80">
-                Two verticals
-              </span>
-              <h2 className="font-serif mx-auto mt-3 max-w-3xl text-[44px] leading-[1.06] font-bold tracking-[-0.02em] text-white md:text-[72px]">
-                Insurance and banking, unified.
-              </h2>
-              <p className="mx-auto mt-6 max-w-lg text-[20px] font-light text-white/80">
-                One vision platform — trained on 10M+ financial-services images,
-                reducing manual review by 70%.
-              </p>
-              <div className="mt-9 flex justify-center">
-                <BuyPill dark>Book a demo</BuyPill>
+              <div>
+                <span className="text-[14px] font-semibold tracking-[0.18em] text-orange uppercase">
+                  Two verticals · One platform
+                </span>
+                <h2 className="font-serif mt-5 text-[40px] leading-[1.05] font-bold tracking-[-0.02em] text-white md:text-[64px]">
+                  Insurance and banking,{' '}
+                  <span className="text-gradient">unified.</span>
+                </h2>
+                <p className="mt-6 max-w-lg text-[18px] leading-[1.55] text-white/65">
+                  One vision platform — trained on 10M+ financial-services
+                  images — cutting manual review by 70% across claims, fraud,
+                  security and collateral.
+                </p>
+                <div className="mt-9">
+                  <BuyPill dark>Book a demo</BuyPill>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10">
+                {[
+                  ['10M+', 'Training images'],
+                  ['70%', 'Less manual review'],
+                  ['8', 'Specialized modules'],
+                  ['2', 'Financial verticals'],
+                ].map(([v, l]) => (
+                  <div key={l} className="bg-white/[0.03] px-7 py-9">
+                    <div className="font-serif text-[34px] font-bold tracking-[-0.02em] text-white [font-variant-numeric:tabular-nums]">
+                      {v}
+                    </div>
+                    <div className="mt-1.5 text-[13px] tracking-[0.04em] text-white/55 uppercase">
+                      {l}
+                    </div>
+                  </div>
+                ))}
               </div>
             </motion.div>
           </div>
@@ -1001,88 +1070,100 @@ const NvisionAI = () => {
             title="Simple, scalable pricing"
             sub="Insurance: SaaS subscription. Banking: per-location hybrid model."
           />
+          {/* insurance — editorial tier ledger (hairline columns, no cards) */}
           <motion.div
-            variants={stagger}
+            variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={vp}
-            className="mt-10 grid items-stretch gap-6 md:grid-cols-3"
+            className="mt-12 grid overflow-hidden rounded-2xl border border-steel md:grid-cols-3"
           >
-            {insurancePlans.map((p) => (
-              <motion.div
+            {insurancePlans.map((p, idx) => (
+              <div
                 key={p.name}
-                variants={item}
-                className={`flex flex-col rounded-[14px] border bg-snow p-8 ${
-                  p.popular ? 'border-steel ring-1 ring-steel' : 'border-steel'
-                }`}
+                className={`flex flex-col p-9 ${
+                  idx > 0 ? 'border-t border-steel md:border-t-0 md:border-l' : ''
+                } ${p.popular ? 'bg-cool/60' : ''}`}
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-[12px] font-semibold tracking-[0.08em] text-muted uppercase">
+                  <span className="text-[12px] font-bold tracking-[0.14em] text-muted uppercase">
                     {p.name}
                   </span>
                   {p.popular && (
-                    <span className="text-[12px] font-semibold tracking-[0.04em] text-ink">
+                    <span className="rounded-full bg-orange px-2.5 py-1 text-[10px] font-bold tracking-[0.08em] text-white uppercase">
                       Recommended
                     </span>
                   )}
                 </div>
-                <div className="mt-6 flex items-end gap-1.5">
-                  <span className="text-[44px] font-bold leading-none tracking-[-0.02em] text-ink [font-variant-numeric:tabular-nums]">
+                <div className="mt-7 flex items-end gap-1.5">
+                  <span className="font-serif text-[46px] font-bold leading-none tracking-[-0.02em] text-ink [font-variant-numeric:tabular-nums]">
                     {p.price}
                   </span>
                   <span className="mb-1.5 text-[14px] text-muted">/mo</span>
                 </div>
-                <p className="mt-4 text-[14px] leading-[1.5] text-charcoal">
+                <p className="mt-4 text-[14px] leading-[1.55] text-muted">
                   {p.desc}
                 </p>
-                <ul className="mt-7 flex-1 space-y-3 border-t border-steel pt-7">
+                <ul className="mt-7 flex-1 space-y-3.5 border-t border-steel pt-7">
                   {p.features.map((f) => (
                     <li
                       key={f}
-                      className="flex items-start gap-2.5 text-[14px] text-charcoal"
+                      className="flex items-start gap-3 text-[14px] text-charcoal"
                     >
-                      <Check size={15} className="mt-0.5 shrink-0 text-ink" />
+                      <Check
+                        size={15}
+                        className="mt-0.5 shrink-0 text-orange"
+                      />
                       {f}
                     </li>
                   ))}
                 </ul>
                 <a
                   href="#cta"
-                  className={`mt-8 inline-flex items-center justify-center rounded-full py-3 text-[15px] font-semibold transition-colors ${
+                  className={`mt-9 inline-flex items-center justify-center rounded-full py-3 text-[15px] font-semibold transition-colors ${
                     p.popular
                       ? 'bg-orange text-white hover:opacity-90'
-                      : 'border border-steel text-ink hover:border-ink/60'
+                      : 'border border-ink/20 text-ink hover:border-ink/50'
                   }`}
                 >
                   {p.btn}
                 </a>
-              </motion.div>
+              </div>
             ))}
           </motion.div>
 
-          {/* Banking — per-location model */}
-          <div className="mt-14">
-            <p className="text-[13px] font-semibold tracking-[0.16em] text-muted uppercase">
-              Banking — Per-location model
-            </p>
-            <div className="mt-6 grid gap-6 md:grid-cols-3">
-              {bankingPlans.map((p) => (
+          {/* banking — per-location, inline hairline row */}
+          <div className="mt-16">
+            <div className="flex items-center gap-4">
+              <span className="text-[12px] font-bold tracking-[0.16em] text-muted uppercase">
+                Banking — Per-location model
+              </span>
+              <span className="h-px flex-1 bg-steel" />
+            </div>
+            <div className="mt-2 grid md:grid-cols-3">
+              {bankingPlans.map((p, idx) => (
                 <div
                   key={p.name}
-                  className="rounded-[14px] border border-steel bg-snow p-7"
+                  className={`flex items-center justify-between gap-6 py-7 md:flex-col md:items-start md:gap-3 md:px-8 ${
+                    idx > 0
+                      ? 'border-t border-steel md:border-t-0 md:border-l'
+                      : 'md:pl-0'
+                  }`}
                 >
-                  <div className="text-[12px] font-semibold tracking-[0.08em] text-muted uppercase">
+                  <div className="text-[12px] font-bold tracking-[0.12em] text-orange uppercase">
                     {p.name}
                   </div>
-                  <div className="mt-4 flex items-end gap-1.5">
-                    <span className="text-[36px] font-bold leading-none tracking-[-0.02em] text-ink [font-variant-numeric:tabular-nums]">
+                  <div className="flex items-end gap-1.5">
+                    <span className="font-serif text-[34px] font-bold leading-none tracking-[-0.02em] text-ink [font-variant-numeric:tabular-nums]">
                       {p.price}
                     </span>
-                    <span className="mb-1 text-[15px] text-muted">
+                    <span className="mb-1 text-[14px] text-muted">
                       {p.cycle}
                     </span>
                   </div>
-                  <p className="mt-4 text-[14px] text-charcoal">{p.desc}</p>
+                  <p className="hidden text-[13px] leading-[1.5] text-muted md:block">
+                    {p.desc}
+                  </p>
                 </div>
               ))}
             </div>
@@ -1103,62 +1184,83 @@ const NvisionAI = () => {
             viewport={vp}
             className="mt-10 grid gap-6 lg:grid-cols-2"
           >
-            {tam.map((g) => (
-              <motion.div
-                key={g.title}
-                variants={item}
-                className="overflow-hidden rounded-[28px] border border-steel bg-snow"
-              >
-                <div className="flex items-center gap-4 border-b border-steel p-7">
-                  <span
-                    className={`grid h-11 w-11 place-items-center rounded-full text-white ${
-                      g.tone === 'green' ? 'bg-green' : 'bg-orange'
-                    }`}
-                  >
-                    {g.icon}
-                  </span>
-                  <div>
-                    <div className="font-serif text-[22px] font-bold tracking-[-0.02em] text-ink">
-                      {g.title}
-                    </div>
-                    <div className="mt-0.5 text-[12px] font-semibold tracking-[0.1em] text-muted uppercase">
-                      {g.market}
-                    </div>
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-3 p-7">
-                  {g.rows.map(([l, v]) => (
-                    <div
-                      key={l}
-                      className={`rounded-2xl border p-4 ${
-                        g.tone === 'green'
-                          ? 'border-steel bg-cool'
-                          : 'border-steel/20 bg-cool'
+            {tam.map((g) => {
+              const accent = g.tone === 'green' ? 'text-green' : 'text-orange';
+              return (
+                <motion.div
+                  key={g.title}
+                  variants={item}
+                  className="glass overflow-hidden p-8 md:p-10"
+                >
+                  <div className="flex items-center gap-4">
+                    <span
+                      className={`grid h-12 w-12 place-items-center rounded-2xl text-white ${
+                        g.tone === 'green' ? 'bg-green' : 'bg-orange'
                       }`}
                     >
-                      <div className="text-[11px] font-semibold tracking-[0.1em] text-muted uppercase">
-                        {l}
+                      {g.icon}
+                    </span>
+                    <div>
+                      <div className="font-serif text-[22px] font-bold tracking-[-0.02em] text-ink">
+                        {g.title}
                       </div>
-                      <div className="font-serif mt-1 text-[22px] font-bold tracking-[-0.02em] text-ink">
-                        {v}
+                      <div className="mt-0.5 text-[12px] font-semibold tracking-[0.12em] text-muted uppercase">
+                        {g.market}
                       </div>
                     </div>
-                  ))}
-                </div>
-                <div className="mx-7 mb-7 flex items-center justify-between rounded-2xl bg-obsidian px-6 py-5">
-                  <span className="text-[12px] font-bold tracking-[0.18em] text-white/55 uppercase">
-                    Sum
-                  </span>
-                  <span
-                    className={`font-serif text-[28px] font-bold tracking-[-0.02em] ${
-                      g.tone === 'green' ? 'text-green' : 'text-orange'
-                    }`}
-                  >
-                    {g.sum}
-                  </span>
-                </div>
-              </motion.div>
-            ))}
+                  </div>
+
+                  <div className="mt-8 space-y-6">
+                    {(() => {
+                      const vals = g.rows.map(([, v]) =>
+                        parseFloat(v.replace(/[^0-9.]/g, '')),
+                      );
+                      const max = Math.max(...vals);
+                      return g.rows.map(([l, v], idx) => (
+                        <div key={l}>
+                          <div className="flex items-baseline justify-between">
+                            <span className="text-[13px] tracking-[0.02em] text-charcoal">
+                              {l}
+                            </span>
+                            <span className="font-serif text-[18px] font-bold tracking-[-0.02em] text-ink [font-variant-numeric:tabular-nums]">
+                              {v}
+                            </span>
+                          </div>
+                          <div className="mt-2 h-2 overflow-hidden rounded-full bg-cool">
+                            <motion.div
+                              initial={{ width: 0 }}
+                              whileInView={{
+                                width: `${(vals[idx] / max) * 100}%`,
+                              }}
+                              viewport={{ once: true }}
+                              transition={{
+                                duration: 0.9,
+                                delay: 0.1 + idx * 0.08,
+                                ease: EASE,
+                              }}
+                              className={`h-full rounded-full ${
+                                g.tone === 'green' ? 'bg-green' : 'bg-orange'
+                              }`}
+                            />
+                          </div>
+                        </div>
+                      ));
+                    })()}
+                  </div>
+
+                  <div className="mt-7 flex items-end justify-between border-t-2 border-ink/10 pt-6">
+                    <span className="text-[12px] font-bold tracking-[0.18em] text-muted uppercase">
+                      Total opportunity
+                    </span>
+                    <span
+                      className={`font-serif text-[34px] font-bold leading-none tracking-[-0.02em] [font-variant-numeric:tabular-nums] ${accent}`}
+                    >
+                      {g.sum}
+                    </span>
+                  </div>
+                </motion.div>
+              );
+            })}
           </motion.div>
         </Section>
 
@@ -1174,94 +1276,130 @@ const NvisionAI = () => {
             initial="hidden"
             whileInView="visible"
             viewport={vp}
-            className="mt-10 overflow-x-auto"
+            className="mt-10 border-t border-ink/15"
           >
-            <table className="w-full min-w-[760px] border-collapse text-left">
-              <thead>
-                <tr className="border-b border-ink/15">
-                  {['Competitor', 'Vertical', 'Their weakness', 'NvisionAI advantage', ''].map(
-                    (h) => (
-                      <th
-                        key={h}
-                        className="px-4 py-3 font-mono text-[11px] font-medium tracking-[0.08em] text-muted uppercase first:pl-0"
-                      >
-                        {h}
-                      </th>
-                    ),
-                  )}
-                </tr>
-              </thead>
-              <tbody>
-                {competitors.map((c) => (
-                  <tr key={c.n} className="border-b border-steel align-top">
-                    <td className="px-4 py-5 pl-0">
-                      <div className="text-[16px] font-semibold text-ink">
-                        {c.name}
-                      </div>
-                    </td>
-                    <td className="px-4 py-5 text-[14px] text-muted">
+            {competitors.map((c, i) => {
+              const open = openFaq === i;
+              return (
+                <div key={c.n} className="border-b border-steel">
+                  <button
+                    onClick={() => setOpenFaq(open ? -1 : i)}
+                    className="flex w-full items-center gap-5 py-5 text-left"
+                  >
+                    <span className="font-mono text-[12px] tabular-nums text-muted">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span className="font-serif flex-1 text-[20px] font-bold tracking-[-0.02em] text-ink">
+                      {c.name}
+                    </span>
+                    <span className="hidden text-[13px] text-muted sm:block">
                       {c.v}
-                    </td>
-                    <td className="px-4 py-5 text-[14px] leading-[1.5] text-charcoal">
-                      {c.weak}
-                    </td>
-                    <td className="px-4 py-5 text-[14px] leading-[1.5] font-medium text-ink">
-                      {c.adv}
-                    </td>
-                    <td className="px-4 py-5 whitespace-nowrap">
-                      <span className="inline-flex items-center gap-1.5 text-[12px] font-semibold text-green">
-                        <Check size={13} /> Win
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-green-soft px-3 py-1 text-[11px] font-bold tracking-[0.06em] text-green uppercase">
+                      <Check size={12} /> Win
+                    </span>
+                    <span
+                      className={`grid h-7 w-7 shrink-0 place-items-center rounded-full border border-steel transition-transform duration-300 ${
+                        open ? 'rotate-45 border-orange text-orange' : 'text-muted'
+                      }`}
+                    >
+                      <Plus size={14} />
+                    </span>
+                  </button>
+                  <AnimatePresence initial={false}>
+                    {open && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.35, ease: EASE }}
+                        className="overflow-hidden"
+                      >
+                        <div className="grid gap-6 pb-7 pl-8 md:grid-cols-2 md:pl-10">
+                          <div>
+                            <div className="text-[11px] font-bold tracking-[0.14em] text-muted uppercase">
+                              Their weakness
+                            </div>
+                            <p className="mt-2 text-[15px] leading-[1.55] text-charcoal">
+                              {c.weak}
+                            </p>
+                          </div>
+                          <div>
+                            <div className="text-[11px] font-bold tracking-[0.14em] text-orange uppercase">
+                              NvisionAI advantage
+                            </div>
+                            <p className="mt-2 text-[15px] leading-[1.55] font-semibold text-ink">
+                              {c.adv}
+                            </p>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
           </motion.div>
         </Section>
 
         {/* GO-TO-MARKET — white band */}
         <Section tone="white">
           <Head kicker="Go-to-market" title="A clear path to value" />
-          <motion.div
-            variants={stagger}
-            initial="hidden"
-            whileInView="visible"
-            viewport={vp}
-            className="mt-10 grid gap-6 md:grid-cols-2"
-          >
-            {gtm.map((g) => (
-              <motion.div
-                key={g.tag}
-                variants={item}
-                className="rounded-[28px] border border-steel bg-fog p-9"
-              >
-                <div className="flex items-baseline justify-between">
-                  <h3 className="font-serif text-[28px] font-bold tracking-[-0.02em] text-ink">
-                    {g.tag}
-                  </h3>
-                  <span className="text-[13px] font-medium text-ink">
-                    {g.sub}
-                  </span>
-                </div>
-                <div className="mt-7 border-l border-steel pl-7">
-                  {g.steps.map(([t, d], i) => (
-                    <div key={t} className="relative pb-7 last:pb-0">
-                      <span className="absolute -left-[2.35rem] grid h-6 w-6 place-items-center rounded-full bg-snow text-[12px] font-bold text-ink">
-                        {i + 1}
+          {/* horizontal step matrix */}
+          <div className="mt-12 overflow-x-auto">
+            <div className="min-w-[860px]">
+              {/* step header */}
+              <div className="grid grid-cols-[170px_repeat(4,1fr)] border-b-2 border-ink/10">
+                <div />
+                {['Entry Point', 'Pilot', 'Expansion', 'Target Segments'].map(
+                  (s, i) => (
+                    <div key={s} className="px-5 pb-4">
+                      <span className="font-mono text-[12px] text-muted tabular-nums">
+                        0{i + 1}
                       </span>
-                      <div className="text-[16px] font-semibold text-ink">
-                        {t}
-                      </div>
-                      <div className="mt-1 text-[14px] leading-[1.47] text-muted">
-                        {d}
+                      <div className="mt-1 text-[14px] font-semibold tracking-[0.06em] text-ink uppercase">
+                        {s}
                       </div>
                     </div>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
+                  ),
+                )}
+              </div>
+
+              {/* lanes */}
+              {gtm.map((g) => {
+                const accent = g.tone === 'green' ? 'text-green' : 'text-orange';
+                return (
+                  <motion.div
+                    key={g.tag}
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.55, ease: EASE }}
+                    className="grid grid-cols-[170px_repeat(4,1fr)] border-b border-steel"
+                  >
+                    <div className="flex flex-col justify-center py-7 pr-5">
+                      <span
+                        className={`font-serif text-[26px] font-bold tracking-[-0.02em] ${accent}`}
+                      >
+                        {g.tag}
+                      </span>
+                      <span className="mt-1 text-[12px] leading-snug text-muted">
+                        {g.sub}
+                      </span>
+                    </div>
+                    {g.steps.map(([, d], i) => (
+                      <div
+                        key={i}
+                        className="border-l border-steel px-5 py-7 text-[14px] leading-[1.5] text-charcoal"
+                      >
+                        {d}
+                      </div>
+                    ))}
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
         </Section>
 
         </main>
