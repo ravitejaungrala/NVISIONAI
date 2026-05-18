@@ -6,6 +6,7 @@ import {
   useMotionValue,
   useTransform,
   useScroll,
+  useSpring,
   animate,
 } from 'framer-motion';
 import { Check, Plus, Minus, ScanEye, Shield, Building2 } from 'lucide-react';
@@ -56,33 +57,27 @@ const Counter = ({ to, prefix = '', suffix = '', decimals = 0 }) => {
 /* ============================================================
    MOTION — gravity-weighted, ease-based
    ============================================================ */
-const EASE = [0.25, 0.1, 0.25, 1];
+/* Motion: cinematic but calm — soft rise + faint scale, gravity ease */
+const EASE = [0.16, 1, 0.3, 1];
 const fadeUp = {
-  hidden: { opacity: 0, y: 36, rotateX: 26, transformPerspective: 1200 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    rotateX: 0,
-    transformPerspective: 1200,
-    transition: { duration: 0.9, ease: EASE },
-  },
+  hidden: { opacity: 0, y: 34, scale: 0.985 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.75, ease: EASE } },
 };
 const stagger = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.05 } },
+  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
 };
-/* card "roll / flip" reveal — rotates up into place on scroll */
 const item = {
-  hidden: { opacity: 0, y: 60, rotateX: -62, transformPerspective: 900 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    rotateX: 0,
-    transformPerspective: 900,
-    transition: { duration: 0.85, ease: EASE },
-  },
+  hidden: { opacity: 0, y: 22, scale: 0.985 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: EASE } },
 };
 const vp = { once: true, amount: 0.2 };
+
+const ScrollProgress = () => {
+  const { scrollYProgress } = useScroll();
+  const sx = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.3 });
+  return <motion.div className="scrollbar-progress" style={{ scaleX: sx }} />;
+};
 
 const Section = ({ id, tone = 'fog', className = '', children, full = false }) => (
   <section id={id} className={tone === 'white' ? 'bg-snow' : 'bg-fog'}>
@@ -170,7 +165,7 @@ const Nav = () => {
         </div>
         <a
           href="#cta"
-          className="group inline-flex items-center gap-2 rounded-full bg-orange px-6 py-3 text-[15px] font-semibold text-white shadow-[0_8px_22px_-8px_rgba(255,69,0,0.65)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-8px_rgba(255,69,0,0.75)]"
+          className="group inline-flex items-center gap-2 rounded-full bg-orange px-6 py-3 text-[15px] font-semibold text-white shadow-[0_8px_22px_-8px_rgba(82,102,235,0.65)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-8px_rgba(82,102,235,0.75)]"
         >
           Get early access
           <span className="transition-transform duration-200 group-hover:translate-x-0.5">
@@ -195,84 +190,90 @@ const Hero = () => {
   const imgScale = useTransform(scrollYProgress, [0, 1], [1, 1.04]);
 
   return (
-    <section ref={ref} id="top" className="bg-fog px-6 pt-28 pb-20">
-      <div className="mx-auto max-w-[1100px] text-center">
-        <motion.p
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: EASE }}
-          className="text-[15px] font-semibold tracking-[0.16em] text-orange uppercase"
-        >
-          Enterprise Computer Vision · Financial Services
-        </motion.p>
-        <motion.h1
-          initial={{ opacity: 0, y: 22 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.85, ease: EASE }}
-          className="font-serif mx-auto mt-4 max-w-5xl text-[11vw] leading-[1.04] font-bold tracking-[-0.022em] text-ink md:text-[80px]"
-        >
-          Vision Intelligence
-          <br />
-          for Insurance &amp; Banking
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.22, duration: 0.8, ease: EASE }}
-          className="mx-auto mt-6 max-w-2xl text-[20px] leading-[1.4] font-light tracking-[-0.01em] text-muted"
-        >
-          One AI platform — trained on millions of financial-services images —
-          automating claims, fraud detection, security monitoring, and
-          collateral verification at scale.
-        </motion.p>
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.36, duration: 0.7 }}
-          className="mt-8 flex items-center justify-center gap-5"
-        >
-          <a
-            href="#solutions"
-            className="group inline-flex items-center gap-2 rounded-full bg-orange px-7 py-3.5 text-[16px] font-semibold text-white shadow-[0_12px_30px_-10px_rgba(255,69,0,0.6)] transition-all duration-200 hover:-translate-y-0.5"
+    <section
+      ref={ref}
+      id="top"
+      className="mesh-bg relative overflow-hidden px-6 pt-32 pb-24"
+    >
+      <div className="mx-auto grid max-w-[1240px] items-center gap-14 lg:grid-cols-[1.02fr_1.18fr]">
+        {/* left — narrative */}
+        <div>
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: EASE }}
+            className="inline-flex items-center gap-2 rounded-full border border-steel bg-snow/70 px-4 py-1.5 text-[12px] font-semibold tracking-[0.14em] text-orange uppercase backdrop-blur"
           >
-            Explore Solutions
-            <span className="transition-transform group-hover:translate-x-0.5">→</span>
-          </a>
-          <a
-            href="#platform"
-            className="rounded-full border border-steel bg-white px-7 py-3.5 text-[16px] font-semibold text-ink transition-colors hover:border-orange/40"
+            <span className="h-1.5 w-1.5 rounded-full bg-orange" />
+            Enterprise Computer Vision
+          </motion.div>
+          <motion.h1
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.08, duration: 0.85, ease: EASE }}
+            className="font-serif mt-6 text-[12vw] leading-[1.02] font-bold tracking-[-0.022em] text-ink md:text-[68px]"
           >
-            View Platform
-          </a>
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.7 }}
-          className="mt-10 flex flex-wrap items-center justify-center gap-3"
-        >
-          {['SOC 2 Type II', 'GLBA Compliant', 'PCI DSS', 'FFIEC Ready'].map(
-            (b) => (
-              <span
-                key={b}
-                className="rounded-full border border-steel bg-white px-4 py-1.5 text-[12px] font-semibold tracking-[0.08em] text-muted uppercase"
-              >
+            <span className="text-gradient">Vision Intelligence</span>
+            <br />
+            for Insurance &amp; Banking
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.8, ease: EASE }}
+            className="mt-6 max-w-xl text-[19px] leading-[1.5] text-muted"
+          >
+            One AI platform — trained on millions of financial-services images —
+            automating claims, fraud detection, security monitoring, and
+            collateral verification at scale.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.34, duration: 0.7 }}
+            className="mt-9 flex flex-wrap items-center gap-4"
+          >
+            <a
+              href="#solutions"
+              className="group inline-flex items-center gap-2 rounded-full bg-orange px-7 py-3.5 text-[16px] font-semibold text-white shadow-[0_16px_36px_-14px_rgba(255,69,0,0.55)] transition-all duration-200 hover:-translate-y-0.5"
+            >
+              Explore Solutions
+              <span className="transition-transform group-hover:translate-x-0.5">
+                →
+              </span>
+            </a>
+            <a
+              href="#platform"
+              className="glass rounded-full px-7 py-3.5 text-[16px] font-semibold text-ink transition-transform hover:-translate-y-0.5"
+            >
+              View Platform
+            </a>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.48, duration: 0.7 }}
+            className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-[12px] font-semibold tracking-[0.08em] text-muted uppercase"
+          >
+            {['SOC 2 Type II', 'GLBA', 'PCI DSS', 'FFIEC Ready'].map((b, i) => (
+              <span key={b} className="flex items-center gap-3">
+                {i > 0 && <span className="h-3 w-px bg-steel" />}
                 {b}
               </span>
-            ),
-          )}
+            ))}
+          </motion.div>
+        </div>
+
+        {/* right — live evidence panel (dominant media) */}
+        <motion.div
+          style={{ y: imgY, scale: imgScale }}
+          initial={{ opacity: 0, y: 36 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 1, ease: EASE }}
+        >
+          <LiveVisionPanel />
         </motion.div>
       </div>
-
-      <motion.div
-        style={{ y: imgY, scale: imgScale }}
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4, duration: 1, ease: EASE }}
-        className="mx-auto mt-16 max-w-[1000px]"
-      >
-        <LiveVisionPanel />
-      </motion.div>
     </section>
   );
 };
@@ -557,7 +558,7 @@ const LiveVisionPanel = () => {
         {/* sweeping scan line */}
         <motion.div
           className="absolute inset-y-0 z-10 w-px bg-orange/70"
-          style={{ boxShadow: '0 0 18px 3px rgba(255,69,0,0.35)' }}
+          style={{ boxShadow: '0 0 18px 3px rgba(82,102,235,0.35)' }}
           animate={{ left: ['4%', '96%', '4%'] }}
           transition={{ duration: 3.4, repeat: Infinity, ease: 'easeInOut' }}
         />
@@ -776,6 +777,7 @@ const NvisionAI = () => {
 
   return (
     <div className="relative bg-obsidian">
+      <ScrollProgress />
       <Nav />
 
       {/* page content — scrolls up over the fixed footer */}
@@ -795,7 +797,7 @@ const NvisionAI = () => {
               { v: <Counter to={70} suffix="%" />, l: 'Less manual review' },
               { v: <Counter to={134} prefix="$" suffix="M+" />, l: 'Addressable opportunity' },
             ].map((s, i) => (
-              <div key={i} className="bg-white/40 px-6 py-7 text-center">
+              <div key={i} className="bg-cool/60 px-6 py-7 text-center">
                 <div className="font-serif text-[38px] leading-none font-bold tracking-[-0.02em] text-ink md:text-[44px]">
                   {s.v}
                 </div>
@@ -841,7 +843,7 @@ const NvisionAI = () => {
                 {solutions[activeTab].items.map((it) => (
                   <div
                     key={it.t}
-                    className="group rounded-2xl border border-steel bg-white p-6 transition-all duration-200 hover:-translate-y-1 hover:border-orange/40 hover:shadow-[0_18px_40px_-26px_rgba(255,69,0,0.4)]"
+                    className="group rounded-2xl border border-steel bg-snow p-6 transition-all duration-200 hover:-translate-y-1 hover:border-steel hover:shadow-[0_18px_40px_-26px_rgba(82,102,235,0.4)]"
                   >
                     <h4 className="font-serif text-[20px] font-bold tracking-[-0.02em] text-ink">
                       {it.t}
@@ -852,8 +854,8 @@ const NvisionAI = () => {
                     <p
                       className={`mt-4 inline-block rounded-full px-3 py-1 text-[12px] font-semibold ${
                         activeTab === 'banking'
-                          ? 'bg-green/10 text-green'
-                          : 'bg-orange/10 text-orange'
+                          ? 'bg-cool text-muted'
+                          : 'bg-cool text-ink'
                       }`}
                     >
                       {it.m}
@@ -869,7 +871,7 @@ const NvisionAI = () => {
                   {solutions[activeTab].integrations.map((int) => (
                     <span
                       key={int}
-                      className="rounded-full border border-steel bg-white px-4 py-2 text-[14px] font-semibold text-ink shadow-[0_2px_8px_-4px_rgba(0,0,0,0.12)]"
+                      className="rounded-full border border-steel bg-snow px-4 py-2 text-[14px] font-semibold text-ink shadow-[0_2px_8px_-4px_rgba(0,0,0,0.12)]"
                     >
                       {int}
                     </span>
@@ -896,8 +898,8 @@ const NvisionAI = () => {
                   onClick={() => setActivePlatform(i)}
                   className={`rounded-2xl border p-4 text-left transition-all duration-200 ${
                     activePlatform === i
-                      ? 'border-orange bg-orange/[0.06] shadow-[0_10px_24px_-14px_rgba(255,69,0,0.5)]'
-                      : 'border-steel bg-white hover:border-orange/40'
+                      ? 'border-steel bg-cool shadow-[0_10px_24px_-14px_rgba(82,102,235,0.5)]'
+                      : 'border-steel bg-snow hover:border-steel'
                   }`}
                 >
                   <span
@@ -941,9 +943,9 @@ const NvisionAI = () => {
                     {active.list.map((li) => (
                       <div
                         key={li}
-                        className="flex items-start gap-2 rounded-xl border border-steel bg-white/70 px-3.5 py-3 text-[13px] leading-snug text-ink"
+                        className="flex items-start gap-2 rounded-xl border border-steel bg-cool/70 px-3.5 py-3 text-[13px] leading-snug text-ink"
                       >
-                        <Check size={15} className="mt-0.5 shrink-0 text-orange" />
+                        <Check size={15} className="mt-0.5 shrink-0 text-ink" />
                         {li}
                       </div>
                     ))}
@@ -953,7 +955,7 @@ const NvisionAI = () => {
             </div>
           </div>
           {/* Unified Value Proposition */}
-          <div className="mt-10 rounded-[28px] border border-steel bg-white p-9 md:p-12">
+          <div className="mt-10 rounded-[28px] border border-steel bg-snow p-9 md:p-12">
             <h3 className="font-serif text-[26px] font-bold tracking-[-0.02em] text-ink">
               Unified Value Proposition
             </h3>
@@ -1006,146 +1008,81 @@ const NvisionAI = () => {
             viewport={vp}
             className="mt-10 grid items-stretch gap-6 md:grid-cols-3"
           >
-            {insurancePlans.map((p, idx) => {
-              const accent = idx === 2 ? 'green' : 'orange';
-              return (
-                <motion.div
-                  key={p.name}
-                  variants={item}
-                  className={`relative flex flex-col overflow-hidden rounded-[28px] p-9 transition-transform duration-200 hover:-translate-y-1.5 ${
-                    p.popular
-                      ? 'text-white shadow-[0_30px_60px_-30px_rgba(255,69,0,0.6)]'
-                      : 'border border-steel bg-white'
-                  }`}
-                  style={
-                    p.popular
-                      ? {
-                          background:
-                            'linear-gradient(160deg,#ff6a2b 0%,#ff4500 55%,#e23a00 100%)',
-                        }
-                      : undefined
-                  }
-                >
-                  {!p.popular && (
-                    <span
-                      className={`absolute inset-x-0 top-0 h-1.5 ${
-                        accent === 'green' ? 'bg-green' : 'bg-orange'
-                      }`}
-                    />
+            {insurancePlans.map((p) => (
+              <motion.div
+                key={p.name}
+                variants={item}
+                className={`flex flex-col rounded-[14px] border bg-snow p-8 ${
+                  p.popular ? 'border-steel ring-1 ring-steel' : 'border-steel'
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-[12px] font-semibold tracking-[0.08em] text-muted uppercase">
+                    {p.name}
+                  </span>
+                  {p.popular && (
+                    <span className="text-[12px] font-semibold tracking-[0.04em] text-ink">
+                      Recommended
+                    </span>
                   )}
-                  <div className="flex items-center justify-between">
-                    <span
-                      className={`text-[13px] font-bold tracking-[0.12em] uppercase ${
-                        p.popular ? 'text-white/90' : 'text-ink'
-                      }`}
+                </div>
+                <div className="mt-6 flex items-end gap-1.5">
+                  <span className="text-[44px] font-bold leading-none tracking-[-0.02em] text-ink [font-variant-numeric:tabular-nums]">
+                    {p.price}
+                  </span>
+                  <span className="mb-1.5 text-[14px] text-muted">/mo</span>
+                </div>
+                <p className="mt-4 text-[14px] leading-[1.5] text-charcoal">
+                  {p.desc}
+                </p>
+                <ul className="mt-7 flex-1 space-y-3 border-t border-steel pt-7">
+                  {p.features.map((f) => (
+                    <li
+                      key={f}
+                      className="flex items-start gap-2.5 text-[14px] text-charcoal"
                     >
-                      {p.name}
-                    </span>
-                    {p.popular && (
-                      <span className="rounded-full bg-white/20 px-3 py-1 text-[11px] font-bold tracking-wide text-white uppercase">
-                        Most popular
-                      </span>
-                    )}
-                  </div>
-                  <div className="mt-6 flex items-end gap-1">
-                    <span
-                      className={`font-serif text-[52px] leading-none font-bold tracking-[-0.02em] ${
-                        p.popular ? 'text-white' : 'text-ink'
-                      }`}
-                    >
-                      {p.price}
-                    </span>
-                    <span
-                      className={`mb-1.5 text-[14px] ${
-                        p.popular ? 'text-white/75' : 'text-muted'
-                      }`}
-                    >
-                      /mo
-                    </span>
-                  </div>
-                  <p
-                    className={`mt-5 text-[14px] leading-[1.5] ${
-                      p.popular ? 'text-white/80' : 'text-muted'
-                    }`}
-                  >
-                    {p.desc}
-                  </p>
-                  <ul className="mt-7 flex-1 space-y-3">
-                    {p.features.map((f) => (
-                      <li
-                        key={f}
-                        className={`flex items-center gap-3 text-[14px] ${
-                          p.popular ? 'text-white/95' : 'text-charcoal'
-                        }`}
-                      >
-                        <span
-                          className={`grid h-5 w-5 shrink-0 place-items-center rounded-full ${
-                            p.popular
-                              ? 'bg-white/20 text-white'
-                              : accent === 'green'
-                                ? 'bg-green/12 text-green'
-                                : 'bg-orange/12 text-orange'
-                          }`}
-                        >
-                          <Check size={12} />
-                        </span>
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                  <a
-                    href="#cta"
-                    className={`mt-9 inline-flex items-center justify-center rounded-full py-3.5 text-[16px] font-semibold transition-all duration-200 hover:-translate-y-0.5 ${
-                      p.popular
-                        ? 'bg-white text-orange'
-                        : accent === 'green'
-                          ? 'bg-green text-white shadow-[0_14px_30px_-12px_rgba(22,163,74,0.6)]'
-                          : 'bg-orange text-white shadow-[0_14px_30px_-12px_rgba(255,69,0,0.6)]'
-                    }`}
-                  >
-                    {p.btn}
-                  </a>
-                </motion.div>
-              );
-            })}
+                      <Check size={15} className="mt-0.5 shrink-0 text-ink" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href="#cta"
+                  className={`mt-8 inline-flex items-center justify-center rounded-full py-3 text-[15px] font-semibold transition-colors ${
+                    p.popular
+                      ? 'bg-orange text-white hover:opacity-90'
+                      : 'border border-steel text-ink hover:border-ink/60'
+                  }`}
+                >
+                  {p.btn}
+                </a>
+              </motion.div>
+            ))}
           </motion.div>
 
           {/* Banking — per-location model */}
           <div className="mt-14">
-            <p className="text-[13px] font-semibold tracking-[0.16em] text-green uppercase">
+            <p className="text-[13px] font-semibold tracking-[0.16em] text-muted uppercase">
               Banking — Per-location model
             </p>
             <div className="mt-6 grid gap-6 md:grid-cols-3">
               {bankingPlans.map((p) => (
                 <div
                   key={p.name}
-                  className={`relative overflow-hidden rounded-[24px] border border-steel bg-white p-7 transition-transform duration-200 hover:-translate-y-1 ${
-                    p.tone === 'green'
-                      ? 'hover:border-green/40'
-                      : 'hover:border-orange/40'
-                  }`}
+                  className="rounded-[14px] border border-steel bg-snow p-7"
                 >
-                  <span
-                    className={`absolute inset-y-0 left-0 w-1.5 ${
-                      p.tone === 'green' ? 'bg-green' : 'bg-orange'
-                    }`}
-                  />
-                  <div
-                    className={`text-[13px] font-bold tracking-[0.12em] uppercase ${
-                      p.tone === 'green' ? 'text-green' : 'text-orange'
-                    }`}
-                  >
+                  <div className="text-[12px] font-semibold tracking-[0.08em] text-muted uppercase">
                     {p.name}
                   </div>
                   <div className="mt-4 flex items-end gap-1.5">
-                    <span className="font-serif text-[40px] leading-none font-bold tracking-[-0.02em] text-ink">
+                    <span className="text-[36px] font-bold leading-none tracking-[-0.02em] text-ink [font-variant-numeric:tabular-nums]">
                       {p.price}
                     </span>
                     <span className="mb-1 text-[15px] text-muted">
                       {p.cycle}
                     </span>
                   </div>
-                  <p className="mt-4 text-[14px] text-muted">{p.desc}</p>
+                  <p className="mt-4 text-[14px] text-charcoal">{p.desc}</p>
                 </div>
               ))}
             </div>
@@ -1170,7 +1107,7 @@ const NvisionAI = () => {
               <motion.div
                 key={g.title}
                 variants={item}
-                className="overflow-hidden rounded-[28px] border border-steel bg-white"
+                className="overflow-hidden rounded-[28px] border border-steel bg-snow"
               >
                 <div className="flex items-center gap-4 border-b border-steel p-7">
                   <span
@@ -1195,8 +1132,8 @@ const NvisionAI = () => {
                       key={l}
                       className={`rounded-2xl border p-4 ${
                         g.tone === 'green'
-                          ? 'border-green/20 bg-green/[0.05]'
-                          : 'border-orange/20 bg-orange/[0.05]'
+                          ? 'border-steel bg-cool'
+                          : 'border-steel/20 bg-cool'
                       }`}
                     >
                       <div className="text-[11px] font-semibold tracking-[0.1em] text-muted uppercase">
@@ -1233,54 +1170,53 @@ const NvisionAI = () => {
             sub="Purpose-built for financial services vs. generic incumbents."
           />
           <motion.div
-            variants={stagger}
+            variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={vp}
-            className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3"
+            className="mt-10 overflow-x-auto"
           >
-            {competitors.map((c) => (
-              <motion.div
-                key={c.n}
-                variants={item}
-                className="group flex flex-col rounded-3xl border border-steel bg-white p-6 transition-all duration-200 hover:-translate-y-1.5 hover:border-orange/40 hover:shadow-[0_24px_50px_-30px_rgba(255,69,0,0.4)]"
-              >
-                <div className="flex items-start justify-between">
-                  <span className="font-serif text-[14px] font-bold text-muted">
-                    {c.n}
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-green/10 px-3 py-1 text-[11px] font-bold tracking-wide text-green uppercase">
-                    <Check size={12} /> Win
-                  </span>
-                </div>
-
-                <h3 className="font-serif mt-3 text-[24px] font-bold tracking-[-0.02em] text-ink">
-                  {c.name}
-                </h3>
-                <span className="mt-2 inline-block w-fit rounded-full border border-steel px-3 py-1 text-[12px] font-medium text-muted">
-                  {c.v}
-                </span>
-
-                <div className="mt-6 space-y-4">
-                  <div>
-                    <div className="text-[11px] font-bold tracking-[0.14em] text-muted/70 uppercase">
-                      Their weakness
-                    </div>
-                    <p className="mt-1.5 text-[14px] leading-[1.5] text-charcoal">
+            <table className="w-full min-w-[760px] border-collapse text-left">
+              <thead>
+                <tr className="border-b border-ink/15">
+                  {['Competitor', 'Vertical', 'Their weakness', 'NvisionAI advantage', ''].map(
+                    (h) => (
+                      <th
+                        key={h}
+                        className="px-4 py-3 font-mono text-[11px] font-medium tracking-[0.08em] text-muted uppercase first:pl-0"
+                      >
+                        {h}
+                      </th>
+                    ),
+                  )}
+                </tr>
+              </thead>
+              <tbody>
+                {competitors.map((c) => (
+                  <tr key={c.n} className="border-b border-steel align-top">
+                    <td className="px-4 py-5 pl-0">
+                      <div className="text-[16px] font-semibold text-ink">
+                        {c.name}
+                      </div>
+                    </td>
+                    <td className="px-4 py-5 text-[14px] text-muted">
+                      {c.v}
+                    </td>
+                    <td className="px-4 py-5 text-[14px] leading-[1.5] text-charcoal">
                       {c.weak}
-                    </p>
-                  </div>
-                  <div className="rounded-2xl bg-orange/[0.05] p-4">
-                    <div className="text-[11px] font-bold tracking-[0.14em] text-orange uppercase">
-                      NvisionAI advantage
-                    </div>
-                    <p className="mt-1.5 text-[14px] leading-[1.5] font-semibold text-ink">
+                    </td>
+                    <td className="px-4 py-5 text-[14px] leading-[1.5] font-medium text-ink">
                       {c.adv}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+                    </td>
+                    <td className="px-4 py-5 whitespace-nowrap">
+                      <span className="inline-flex items-center gap-1.5 text-[12px] font-semibold text-green">
+                        <Check size={13} /> Win
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </motion.div>
         </Section>
 
@@ -1304,14 +1240,14 @@ const NvisionAI = () => {
                   <h3 className="font-serif text-[28px] font-bold tracking-[-0.02em] text-ink">
                     {g.tag}
                   </h3>
-                  <span className="text-[13px] font-medium text-orange">
+                  <span className="text-[13px] font-medium text-ink">
                     {g.sub}
                   </span>
                 </div>
                 <div className="mt-7 border-l border-steel pl-7">
                   {g.steps.map(([t, d], i) => (
                     <div key={t} className="relative pb-7 last:pb-0">
-                      <span className="absolute -left-[2.35rem] grid h-6 w-6 place-items-center rounded-full bg-snow text-[12px] font-bold text-orange">
+                      <span className="absolute -left-[2.35rem] grid h-6 w-6 place-items-center rounded-full bg-snow text-[12px] font-bold text-ink">
                         {i + 1}
                       </span>
                       <div className="text-[16px] font-semibold text-ink">
@@ -1341,7 +1277,7 @@ const NvisionAI = () => {
           <div>
             <div
               className="pointer-events-none absolute -top-32 left-1/2 h-72 w-[44rem] -translate-x-1/2 rounded-full opacity-60 blur-[120px]"
-              style={{ background: 'radial-gradient(closest-side,rgba(255,69,0,0.5),transparent)' }}
+              style={{ background: 'radial-gradient(closest-side,rgba(82,102,235,0.5),transparent)' }}
             />
             {/* CTA */}
             <motion.div
@@ -1351,7 +1287,7 @@ const NvisionAI = () => {
               transition={{ duration: 0.8, ease: EASE }}
               className="relative px-6 pt-14 pb-12 text-center"
             >
-              <span className="text-[15px] font-semibold tracking-[0.04em] text-orange">
+              <span className="text-[15px] font-semibold tracking-[0.04em] text-ink">
                 Get started
               </span>
               <h2 className="font-serif mx-auto mt-2 max-w-xl text-[32px] leading-[1.08] font-bold tracking-[-0.02em] text-white md:text-[42px]">
@@ -1368,7 +1304,7 @@ const NvisionAI = () => {
               </div>
             </motion.div>
 
-            <div className="mx-8 h-px bg-white/10 md:mx-14" />
+            <div className="mx-8 h-px bg-snow/10 md:mx-14" />
 
             {/* footer — compact single row */}
             <div className="relative flex flex-col gap-6 px-8 py-7 md:flex-row md:items-center md:justify-between md:px-14">
@@ -1383,7 +1319,7 @@ const NvisionAI = () => {
               <div className="flex flex-wrap items-center gap-x-6 gap-y-1.5 text-[13px] text-white/50">
                 <span>India +91 88852 57422</span>
                 <span>USA +1 972 372 9983</span>
-                <a href="mailto:contact@neuzenai.com" className="font-medium text-orange hover:opacity-80">
+                <a href="mailto:contact@neuzenai.com" className="font-medium text-ink hover:opacity-80">
                   contact@neuzenai.com
                 </a>
               </div>
@@ -1393,7 +1329,7 @@ const NvisionAI = () => {
                     key={x}
                     href="#"
                     aria-label={x}
-                    className="grid h-9 w-9 place-items-center rounded-full border border-white/15 text-[12px] font-semibold text-white/70 transition-all duration-200 hover:border-orange hover:bg-orange hover:text-white"
+                    className="grid h-9 w-9 place-items-center rounded-full border border-white/15 text-[12px] font-semibold text-white/70 transition-all duration-200 hover:border-steel hover:bg-orange hover:text-white"
                   >
                     {x}
                   </a>
